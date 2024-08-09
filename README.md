@@ -12,11 +12,11 @@ common data cleaning & wrangling steps the team comes across.
 ## Installation
 
 You can install the development version of akairmonitor from
-[GitHub](https://github.com/simeon-s-ng/akairmonitor) with:
+[GitHub](https://github.com/simeon-s-ng/akairmonitorr) with:
 
 ``` r
 # install.packages("pak")
-pak::pak("simeon-s-ng/akairmonitor")
+pak::pak("simeon-s-ng/akairmonitorr")
 ```
 
 ## Example
@@ -24,7 +24,7 @@ pak::pak("simeon-s-ng/akairmonitor")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(akairmonitor)
+library(akairmonitorr)
 
 # .csv basic data export from Agilaire/AirVision
 file_path <- "C:/Data Analysis/Testing/data/BasicDataExportReport.csv"
