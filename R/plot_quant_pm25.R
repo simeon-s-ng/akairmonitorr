@@ -18,7 +18,7 @@ plot_quant_pm25 <- function(data, town, cols = NULL) {
     data,
     pollutant = "pm25",
     statistic = "median",
-    ylab = "PM25 (µg/m³)",
+    ylab = "PM25 (\\u00b5g/m\\u00b3)",
     cols = ifelse(!is.null(cols), cols, "cornflowerblue"),
     main = paste0(
       town,
