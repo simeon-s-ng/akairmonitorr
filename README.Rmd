@@ -1,0 +1,47 @@
+---
+output: github_document
+prefer-html: true
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# akairmonitor
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+Package for the AMQA data management team.
+Contains functions for the common data cleaning & wrangling steps the team 
+comes across.
+
+## Installation
+
+You can install the development version of akairmonitor from [GitHub](https://github.com/simeon-s-ng/akairmonitor) with:
+
+``` r
+# install.packages("pak")
+pak::pak("simeon-s-ng/akairmonitor")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(akairmonitor)
+
+# .csv basic data export from Agilaire/AirVision
+file_path <- "C:/Data Analysis/Testing/data/BasicDataExportReport.csv"
+basic_data_aa <- read_aa(file_path)
+
+head(basic_data_aa)
+```
