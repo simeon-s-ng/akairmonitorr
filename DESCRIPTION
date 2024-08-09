@@ -7,6 +7,17 @@ Maintainer: Simeon Ng <simeon.ng@alaska.gov>
 Description: Package for the AMQA data management team.
     Contains functions for the common data cleaning & wrangling steps the team
     comes across.
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Imports: 
+    dplyr,
+    gt,
+    janitor,
+    lubridate,
+    magrittr,
+    readr
+RoxygenNote: 7.3.2
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
