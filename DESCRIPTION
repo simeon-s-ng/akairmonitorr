@@ -1,12 +1,12 @@
 Package: akairmonitorr
 Type: Package
-Title: Helper Functions for AK DEC AMQA Team
+Title: AK DEC AMQA Data Management Team Tools
 Version: 0.1.0
 Author: Simeon Ng
 Maintainer: Simeon Ng <simeon.ng@alaska.gov>
-Description: Package for the AMQA data management team.
-    Contains functions for the common data cleaning & wrangling steps the team
-    comes across.
+Description: Tools for the AMQA data management team.
+    Contains functions for the common data cleaning, wrangling, and
+    visualization steps the team comes across.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
