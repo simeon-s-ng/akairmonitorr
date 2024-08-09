@@ -1,4 +1,4 @@
-#' read_aa - Read an Agilaire File
+#' Read an Agilaire File
 #'
 #' Reads a basic data export file from Agilaire/AirVision and reformats
 #' data into useable form.

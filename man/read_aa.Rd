@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_aa.R
 \name{read_aa}
 \alias{read_aa}
-\title{read_aa - Read an Agilaire File}
+\title{Read an Agilaire File}
 \usage{
 read_aa(file)
 }
