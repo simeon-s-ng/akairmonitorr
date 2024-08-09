@@ -36,12 +36,15 @@ pak::pak("simeon-s-ng/akairmonitorr")
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r example}
+```{r example, fig.width=10, fig.height=10}
 library(akairmonitorr)
 
 # .csv basic data export from Agilaire/AirVision
-file_path <- "C:/Data Analysis/Testing/data/BasicDataExportReport.csv"
-basic_data_aa <- read_aa(file_path)
+file_path <- "C:/Data Analysis/Testing/data/haines_quant.csv"
+haines_quant <- read_aa(file_path)
 
-head(basic_data_aa)
+head(haines_quant)
+
+# Temporal Plot
+plot_quant_pm25(haines_quant, "Haines")
 ```

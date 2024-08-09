@@ -18,7 +18,7 @@ read_aa <- function(file) {
     dplyr::rename(date = na) %>%
     dplyr::filter(!dplyr::row_number() %in% c(1)) %>%
     dplyr::mutate(date = lubridate::parse_date_time(date, "dmy HM"))
-
+  # Convert columns to numeric
   aa_file <- aa_file %>%
     dplyr::mutate_at(c(2:length(aa_file)), as.numeric)
 }
