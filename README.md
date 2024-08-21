@@ -21,10 +21,11 @@ pak::pak("simeon-s-ng/akairmonitorr")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
-
 ``` r
 library(akairmonitorr)
+
+# Query our internal AirVision server for data
+# quant_460 <- query_agileweb("Quant_MOD00460", "PM25", start = "2024-05-13T00:00:00")
 
 # .csv basic data export from Agilaire/AirVision
 file_path <- "C:/Data Analysis/Testing/data/haines_quant.csv"
