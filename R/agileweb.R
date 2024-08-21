@@ -6,7 +6,7 @@
 
 #' Query AMQA internal agileweb server for site/parameter data.
 #'
-#' @param sites Site name string. Optionally a comma-separated list of site names. (Site names are identical as listed in AirVision > Configuration Editors > Site/Parameter)
+#' @param sites Site name string. Optionally a comma-separated list of site names. As the API is limited to 10,000 records at once, it is recommended to provide only one site name in a query (Site names are identical as listed in AirVision > Configuration Editors > Site/Parameter).
 #' @param parameters Parameter string. Optionally a comma-separated list of parameter names. (Parameter names are identical as listed in AirVision > Configuration Editors > Site/Parameters)
 #' @param interval Interval string. Defaults to 001h.
 #' @param start Start date/time in format yyyy-mm-ddTHH:mm:ss
