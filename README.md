@@ -23,11 +23,17 @@ pak::pak("simeon-s-ng/akairmonitorr")
 
 ``` r
 library(akairmonitorr)
+```
 
-# Query our internal AirVision server for data
+You can query our internal AirVision server for data with:
+
+``` r
 # quant_460 <- query_agileweb("Quant_MOD00460", "PM25", start = "2024-05-13T00:00:00")
+```
 
-# .csv basic data export from Agilaire/AirVision
+Or read a .csv basic data export from AirVision:
+
+``` r
 file_path <- "C:/Data Analysis/Testing/data/haines_quant.csv"
 haines_quant <- read_aa(file_path)
 #> New names:
@@ -53,9 +59,12 @@ head(haines_quant)
 #> 5 2024-01-31 04:00:00     0.2  -32.0      0   2.42   10.2       39.8          44
 #> 6 2024-01-31 05:00:00    -0.4  -13.4      0   2.37    8.62      41.8          63
 #> # ℹ 2 more variables: pm25 <dbl>, relhum <dbl>
+```
 
-# Temporal Plot
+You can create an OpenAir Temporal plot with your imported data:
+
+``` r
 plot_quant_pm25(haines_quant, "Haines")
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
+<img src="man/figures/README-plot quant pm25-1.png" width="100%" />
