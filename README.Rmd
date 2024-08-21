@@ -53,7 +53,7 @@ haines_quant <- read_aa(file_path)
 head(haines_quant)
 ```
 
-You can create an OpenAir Temporal plot with your imported data:
+You can create an OpenAir diurnal plot with your imported data:
 
 ```{r plot quant pm25, fig.width=10, fig.height=10}
 plot_quant_pm25(haines_quant, "Haines")
