@@ -38,7 +38,12 @@ query_agileweb <- function(sites, parameters, interval = NULL, start, end = NULL
   resp <- httr2::req_perform(req) |>
     httr2::resp_body_string() |>
     readr::read_csv()
-  return(resp)
+  return(
+    resp |>
+      dplyr::select(
+        "Date", "SiteName", "ParameterName", "ReportedUnitName", "IntervalName", "IsValid", "ReportValue", "FlagString"
+      )
+  )
 }
 
 #' agileweb_dt
