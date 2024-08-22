@@ -37,7 +37,7 @@ query_agileweb <- function(sites, parameters, interval = NULL, start, end = NULL
   req
   resp <- httr2::req_perform(req) |>
     httr2::resp_body_string() |>
-    readr::read_csv()
+    readr::read_csv(show_col_types = FALSE)
   return(
     resp |>
       dplyr::select(
