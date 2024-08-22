@@ -2,6 +2,7 @@
 
 export("%>%")
 export(agileweb_dt)
+export(clean_pm25)
 export(plot_quant_pm25)
 export(query_agileweb)
 export(read_aa)
