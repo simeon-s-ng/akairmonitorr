@@ -19,7 +19,6 @@ Imports:
     openair,
     readr,
     httr2,
-    rstudioapi,
     stringr
 RoxygenNote: 7.3.2
 Suggests: 

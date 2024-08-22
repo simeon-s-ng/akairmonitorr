@@ -11,11 +11,11 @@
 #' @param interval Interval string. Defaults to 001h.
 #' @param start Start date/time in format yyyy-mm-ddTHH:mm:ss
 #' @param end End date/time in format yyyy-mm-ddTHH:mm:ss. Defaults to current time.
+#' @param api_key AirVision API Key - Ask Agilaire admins for API keys.
 #'
 #' @return A tibble with selected columns.
 #' @export
-query_agileweb <- function(sites, parameters, interval = NULL, start, end = NULL) {
-  api_key <- rstudioapi::askForPassword(prompt = "Please enter your Agileweb API key")
+query_agileweb <- function(sites, parameters, interval = NULL, start, end = NULL, api_key) {
   if(is.null(interval)) {
     interval <- "001h"
   }

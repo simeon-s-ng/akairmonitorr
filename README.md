@@ -28,7 +28,8 @@ library(akairmonitorr)
 You can query our internal AirVision server for data with:
 
 ``` r
-# quant_460 <- query_agileweb("Quant_MOD00460", "PM25", start = "2024-05-13T00:00:00")
+# key <- API_KEY
+# quant_460 <- query_agileweb("Quant_MOD00460", "PM25", start = "2024-05-13T00:00:00", key)
 ```
 
 Or read a .csv basic data export from AirVision:

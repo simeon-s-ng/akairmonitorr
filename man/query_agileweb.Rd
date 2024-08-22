@@ -4,7 +4,7 @@
 \alias{query_agileweb}
 \title{Query AMQA internal agileweb server for site/parameter data.}
 \usage{
-query_agileweb(sites, parameters, interval = NULL, start, end = NULL)
+query_agileweb(sites, parameters, interval = NULL, start, end = NULL, api_key)
 }
 \arguments{
 \item{sites}{Site name string. Optionally a comma-separated list of site names. It is recommended to provide only one site name in a query, as the API is limited to 10,000 records at once (Site names are identical as listed in AirVision > Configuration Editors > Site/Parameter).}
@@ -16,6 +16,8 @@ query_agileweb(sites, parameters, interval = NULL, start, end = NULL)
 \item{start}{Start date/time in format yyyy-mm-ddTHH:mm:ss}
 
 \item{end}{End date/time in format yyyy-mm-ddTHH:mm:ss. Defaults to current time.}
+
+\item{api_key}{AirVision API Key - Ask Agilaire admins for API keys.}
 }
 \value{
 A tibble with selected columns.
