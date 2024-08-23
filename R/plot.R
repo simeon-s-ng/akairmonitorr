@@ -23,9 +23,9 @@ plot_quant_pm25 <- function(data, town, cols = NULL) {
     main = paste0(
       town,
       " Quant - Median PM25 Concentrations | ",
-      lubridate::date(min(data$date)),
+      format(lubridate::date(min(data$date)), "%m/%d/%Y"),
       " - ",
-      lubridate::date(max(data$date))
+      format(lubridate::date(max(data$date)), "%m/%d/%Y")
     ),
     sub = "median"
   )
