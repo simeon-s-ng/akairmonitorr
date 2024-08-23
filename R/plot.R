@@ -19,7 +19,8 @@ plot_quant_pm25 <- function(data, town, cols = NULL) {
     pollutant = "pm25",
     statistic = "median",
     ylab = "PM25 (\\u00b5g/m\\u00b3)",
-    cols = ifelse(!is.null(cols), cols, "cornflowerblue"),
+    cols = ifelse(!is.null(cols), cols, "#12436D"),
+    key = FALSE,
     main = paste0(
       town,
       " Quant - Median PM25 Concentrations | ",
@@ -27,6 +28,7 @@ plot_quant_pm25 <- function(data, town, cols = NULL) {
       " - ",
       format(lubridate::date(max(data$date)), "%m/%d/%Y")
     ),
+    ylim = list(c(0, 35), c(0, 35), c(0, 35), c(0, 35)),
     sub = "median"
   )
 }

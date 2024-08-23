@@ -66,7 +66,5 @@ head(haines_quant)
 You can create an OpenAir diurnal plot with your imported data:
 
 ``` r
-plot_quant_pm25(haines_quant, "Haines")
+# plot_quant_pm25(haines_quant, "Haines")
 ```
-
-<img src="man/figures/README-plot quant pm25-1.png" width="100%" />
