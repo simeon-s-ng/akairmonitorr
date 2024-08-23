@@ -20,7 +20,6 @@ plot_quant_pm25 <- function(data, town, cols = NULL) {
     statistic = "median",
     ylab = "PM25 (\\u00b5g/m\\u00b3)",
     cols = ifelse(!is.null(cols), cols, "#12436D"),
-    key = FALSE,
     main = paste0(
       town,
       " Quant - Median PM25 Concentrations | ",
