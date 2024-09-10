@@ -10,7 +10,7 @@
 #' @examples
 #' data <- read_aa("C:/Data Analysis/Testing/data/haines_quant.csv")
 #' plot_quant_pm25(data, "Haines")
-plot_quant_pm25 <- function(data, town, cols = NULL) {
+plot_quant_pm25 <- function(data, town, cols = NULL, ...) {
   # Artificial cutoff at 50ug/m3
   data <- data %>% dplyr::filter(pm25 <= 50)
 
@@ -29,5 +29,28 @@ plot_quant_pm25 <- function(data, town, cols = NULL) {
     ),
     ylim = list(c(0, 35), c(0, 35), c(0, 35), c(0, 35)),
     sub = "median"
+  )
+}
+
+#' Wind Rose plot to DEC AMQA Standard
+#' 
+#' @param data Wind speed and wind direction data
+#' @param title Title for plot
+#' 
+#' @return An openair Windrose
+#' @export 
+plot_wind_rose <- function(data, title) {
+  openair::windRose(
+    mydata = data,
+    paddle = FALSE, 
+    cols = c("#C1C1C1", "#81FFFE", "#7FFF81", "#FFFF01", "#FE0002", "#0000FE", "#FF00FF"),
+    border = "#000000",
+    offset = 5,
+    key.position = "right",
+    auto.text = FALSE,
+    grid.line = list(value = 3.5, lty = 5),
+    max.freq = 21,
+    breaks = c(0.01, 0.50, 1.50, 3.10, 5.10, 8.20, 10.80),
+    main = title
   )
 }

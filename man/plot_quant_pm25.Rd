@@ -4,7 +4,7 @@
 \alias{plot_quant_pm25}
 \title{Quant PM25 Temporal Plot}
 \usage{
-plot_quant_pm25(data, town, cols = NULL)
+plot_quant_pm25(data, town, cols = NULL, ...)
 }
 \arguments{
 \item{data}{Quant data in Agilaire basic data export format.}
