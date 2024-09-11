@@ -2,18 +2,18 @@
 % Please edit documentation in R/plot.R
 \name{plot_wind_rose}
 \alias{plot_wind_rose}
-\title{Wind Rose plot to DEC AMQA Standard}
+\title{DEC AMQA Wind Rose}
 \usage{
 plot_wind_rose(data, title)
 }
 \arguments{
-\item{data}{Wind speed and wind direction data}
+\item{data}{Wind speed and wind direction data. Must have column names ("date", "wd", "ws").}
 
-\item{title}{Title for plot}
+\item{title}{Title for the figure.}
 }
 \value{
 An openair Windrose
 }
 \description{
-Wind Rose plot to DEC AMQA Standard
+DEC AMQA Wind Rose
 }

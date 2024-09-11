@@ -32,10 +32,10 @@ plot_quant_pm25 <- function(data, town, cols = NULL, ...) {
   )
 }
 
-#' Wind Rose plot to DEC AMQA Standard
+#' DEC AMQA Wind Rose
 #' 
-#' @param data Wind speed and wind direction data
-#' @param title Title for plot
+#' @param data Wind speed and wind direction data. Must have column names ("date", "wd", "ws").
+#' @param title Title for the figure.
 #' 
 #' @return An openair Windrose
 #' @export 

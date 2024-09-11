@@ -63,8 +63,16 @@ head(haines_quant)
 #> # ℹ 2 more variables: pm25 <dbl>, relhum <dbl>
 ```
 
-You can create an OpenAir diurnal plot with your imported data:
+You can create an OpenAir diurnal plot with your imported data (must
+follow openair package column naming conventions):
 
 ``` r
 # plot_quant_pm25(haines_quant, "Haines")
+```
+
+You can create an OpenAir wind rose with your imported data (must follow
+openair package column naming conventions):
+
+``` r
+# plot_wind_rose(data, "Hourly Wind Speed (m/s) vs. Direction at the A Street Monitor 2021")
 ```
