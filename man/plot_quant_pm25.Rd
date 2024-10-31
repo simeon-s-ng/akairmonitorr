@@ -12,6 +12,8 @@ plot_quant_pm25(data, town, cols = NULL, ...)
 \item{town}{Quant town location.}
 
 \item{cols}{Optional plot color.}
+
+\item{...}{Additional pass-through arguments}
 }
 \value{
 A PM2.5 temporal plot.

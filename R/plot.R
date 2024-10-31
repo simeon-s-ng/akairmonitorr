@@ -3,6 +3,7 @@
 #' @param data Quant data in Agilaire basic data export format.
 #' @param town Quant town location.
 #' @param cols Optional plot color.
+#' @param ... Additional pass-through arguments
 #'
 #' @return A PM2.5 temporal plot.
 #' @export
@@ -33,16 +34,16 @@ plot_quant_pm25 <- function(data, town, cols = NULL, ...) {
 }
 
 #' DEC AMQA Wind Rose
-#' 
+#'
 #' @param data Wind speed and wind direction data. Must have column names ("date", "wd", "ws").
 #' @param title Title for the figure.
-#' 
+#'
 #' @return An openair Windrose
-#' @export 
+#' @export
 plot_wind_rose <- function(data, title) {
   openair::windRose(
     mydata = data,
-    paddle = FALSE, 
+    paddle = FALSE,
     cols = c("#C1C1C1", "#81FFFE", "#7FFF81", "#FFFF01", "#FE0002", "#0000FE", "#FF00FF"),
     border = "#000000",
     offset = 5,

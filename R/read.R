@@ -22,3 +22,48 @@ read_aa <- function(file) {
   aa_file <- aa_file %>%
     dplyr::mutate_at(c(2:length(aa_file)), as.numeric)
 }
+
+#' Reads an Agilaire Quant Flagged Data Export
+#'
+#' @param file The path to the file.
+#'
+#' @return Agilaire data in tibble form.
+#' @export
+read_quant_flagged <- function(file) {
+  aa_file <- readr::read_csv(
+    file,
+    progress = readr::show_progress(),
+    name_repair = "minimal",
+    show_col_types = FALSE,
+    skip_empty_rows = FALSE,
+  )
+  colnames(aa_file)[1] <- "Date"
+  names(aa_file) <- paste(names(aa_file), aa_file[1, ], aa_file[3, ], sep = "_")
+  aa_file |>
+    dplyr::rename_with(~str_remove(., "Quant_MOD00")) |>
+    dplyr::rename(Date = Date_NA_Date) |>
+    dplyr::filter(!dplyr::row_number() %in% c(1, 2, 3))
+}
+
+#' Reads an Agilaire Regulatory Flagged Data Export
+#'
+#' @param file The path to the file.
+#' @param site The Regulatory site name as a string. This should match the site name exported from AA.
+#'
+#' @return Agilaire data in tibble form.
+#' @export
+read_regulatory_flagged <- function(file, site) {
+  aa_file <- readr::read_csv(
+    file,
+    progress = readr::show_progress(),
+    name_repair = "minimal",
+    show_col_types = FALSE,
+    skip_empty_rows = FALSE,
+  )
+  colnames(aa_file)[1] <- "Date"
+  names(aa_file) <- paste(names(aa_file), aa_file[1, ], aa_file[3, ], sep = "_")
+  aa_file |>
+    dplyr::rename_with(~str_remove(., paste(site, "_", sep = ""))) |>
+    dplyr::rename(Date = Date_NA_Date) |>
+    dplyr::filter(!dplyr::row_number() %in% c(1, 2, 3))
+}
