@@ -40,9 +40,10 @@ read_quant_flagged <- function(file) {
   colnames(aa_file)[1] <- "Date"
   names(aa_file) <- paste(names(aa_file), aa_file[1, ], aa_file[3, ], sep = "_")
   aa_file |>
-    dplyr::rename_with(~str_remove(., "Quant_MOD00")) |>
+    dplyr::rename_with(~stringr::str_remove(., "Quant_MOD00")) |>
     dplyr::rename(Date = Date_NA_Date) |>
-    dplyr::filter(!dplyr::row_number() %in% c(1, 2, 3))
+    dplyr::filter(!dplyr::row_number() %in% c(1, 2, 3)) |>
+    dplyr::mutate(Date = lubridate::parse_date_time(Date, "dmy HM"))
 }
 
 #' Reads an Agilaire Regulatory Flagged Data Export
@@ -63,7 +64,8 @@ read_regulatory_flagged <- function(file, site) {
   colnames(aa_file)[1] <- "Date"
   names(aa_file) <- paste(names(aa_file), aa_file[1, ], aa_file[3, ], sep = "_")
   aa_file |>
-    dplyr::rename_with(~str_remove(., paste(site, "_", sep = ""))) |>
+    dplyr::rename_with(~stringr::str_remove(., paste(site, "_", sep = ""))) |>
     dplyr::rename(Date = Date_NA_Date) |>
-    dplyr::filter(!dplyr::row_number() %in% c(1, 2, 3))
+    dplyr::filter(!dplyr::row_number() %in% c(1, 2, 3)) |>
+    dplyr::mutate(Date = lubridate::parse_date_time(Date, "dmy HM"))
 }
