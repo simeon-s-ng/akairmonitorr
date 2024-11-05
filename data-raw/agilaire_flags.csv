@@ -1,0 +1,50 @@
+﻿Flag,Description,AQS Null Code,Flag Type
+I,Invalidated By Edit,AL - Voided by Operator,Validity Flag
+T,Out of Control,,Validity Flag
+?,Suspect,TS - Holding Time or Transport Temperature is Out of Specs,
+P,Power Failure,AV - Power Failure (POWR),
+b,Multi Point Calibration,,
+B,Bad Status,AN - Machine Malfunction,Validity Flag
+C,Calibration,AY - Q C Control Points (Zero/Span),Validity Flag
+M,Maintenance,BA - Maintenance/Routine Repairs,Validity Flag
+m,Marked Maint by edit,BA - Maintenance/Routine Repairs,
+O,Overrange,AN - Machine Malfunction,
+F,Boiler Offline,,Validity Flag
++,Max Exceeded,AN - Machine Malfunction,Validity Flag
+-,Min Exceeded,AN - Machine Malfunction,Validity Flag
+D,Channel Disabled,,Validity Flag
+A,Arithmetic Error,,Infomational Flag
+<,Logger Invalid,,Validity Flag
+d,Aberrant data,,
+G,Poor QA,,
+E,Edited,,Informational Flag
+f,Floor Limit,,Informational Flag
+c,Ceiling Limit,,Informational Flag
+z,Zero Adjusted,,
+Q,Quality Assured,,
+e,Site Malfunction,,
+a,Audit,AZ - Q C Audit (AUDT),
+p,Precision Check,AX - Precision Check (PREC),
+o,Other,,
+q,Sample Flow Out of Limits,,
+R,Rate of Change Exceeded,AN - Machine Malfunction,Validity Flag
+H,High-High Alarm,,Informational Flag
+L,Low-Low Alarm,,Informational Flag
+h,High Alarm,,Informational Flag
+l,Low Alarm,,Informational Flag
+J,High Rate of Change Exceeded,,Informational Flag
+j,Low Rate of Change Exceeded,,Informational Flag
+V,Dig Info #1,,
+W,Dig Info #2,,
+X,Dig Info #3,,
+Y,Dig Info #4,,
+Z,Dig Info #5,,
+S,Site Visit,,Informational Flag
+s,Site Activity,,Informational Flag
+>,Some Data Missing,,
+t,Out of Control (Partial),,Informational Flag
+2,AQ dr das,,Validity Flag
+0,AM dr das,,Validity Flag
+1,data ok dr das,,Informational Flag
+3,<samp (AI) dr das,,Validity Flag
+*,"Potential fog, ice fog, smoke, dust",,
