@@ -21,7 +21,7 @@ clean_pm25 <- function(data) {
 #' @return Clean tibble of Quant data.
 #' @export
 clean_garden_quant <- function(data, pod) {
-  data |>
+  data <- data |>
     dplyr::select(
       Date,
       ((dplyr::starts_with(pod) & dplyr::ends_with("Value")) & (!dplyr::contains(c("NO_", "NO2_", "OZONE"))))
@@ -43,7 +43,8 @@ clean_garden_quant <- function(data, pod) {
 #' @return Clean tibble of Quant data.
 #' @export
 clean_ncore_quant <- function(data, pod) {
-  dplyr::select(Date, (dplyr::starts_with(pod) & dplyr::ends_with("Value"))) |>
+  data <- data |>
+    dplyr::select(Date, (dplyr::starts_with(pod) & dplyr::ends_with("Value"))) |>
     dplyr::rename_with(~ stringr::str_remove(., paste0(pod, "_"))) |>
     dplyr::rename_with(~ stringr::str_remove(., "_Value"))
   # Convert columns to numeric
