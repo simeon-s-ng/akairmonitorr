@@ -28,9 +28,13 @@ clean_garden_quant <- function(data, pod) {
     ) |>
     dplyr::rename_with(~ stringr::str_remove(., paste0(pod, "_"))) |>
     dplyr::rename_with(~ stringr::str_remove(., "_Value"))
-  # Convert columns to numeric
+  # Convert columns to numeric // Add dewpoint col
   data <- data |>
-    dplyr::mutate_at(c(2:length(data)), as.numeric)
+    dplyr::mutate_at(c(2:length(data)), as.numeric) |>
+    # DEWPOINT FOMULA: https://bmcnoldy.earth.miami.edu/Humidity.html
+    dplyr::mutate(
+      DEWPT = (243.04 * log(RELHUM / 100) + ((17.625 * AMBTEMP))) / (((243.04 + AMBTEMP)) / (17.625 - log(RELHUM / 100) - ((17.625 * AMBTEMP) / (243.04 + AMBTEMP))))
+    )
 
   return(data)
 }
@@ -46,6 +50,27 @@ clean_ncore_quant <- function(data, pod) {
   data <- data |>
     dplyr::select(Date, (dplyr::starts_with(pod) & dplyr::ends_with("Value"))) |>
     dplyr::rename_with(~ stringr::str_remove(., paste0(pod, "_"))) |>
+    dplyr::rename_with(~ stringr::str_remove(., "_Value"))
+  # Convert columns to numeric
+  data <- data |>
+    dplyr::mutate_at(c(2:length(data)), as.numeric) |>
+    # DEWPOINT FOMULA: https://bmcnoldy.earth.miami.edu/Humidity.html
+    dplyr::mutate(
+      DEWPT = (243.04 * log(RELHUM / 100) + ((17.625 * AMBTEMP))) / (((243.04 + AMBTEMP)) / (17.625 - log(RELHUM / 100) - ((17.625 * AMBTEMP) / (243.04 + AMBTEMP))))
+    )
+
+  return(data)
+}
+
+#' Cleans Regulatory Data Imported from AA
+#'
+#' @param data Tibble imported using the read_regulatory_flagged() function
+#'
+#' @return Clean tibble of regulatory data.
+#' @export
+clean_regulatory <- function(data) {
+  data <- data |>
+    dplyr::select(Date, (dplyr::ends_with("Value"))) |>
     dplyr::rename_with(~ stringr::str_remove(., "_Value"))
   # Convert columns to numeric
   data <- data |>
