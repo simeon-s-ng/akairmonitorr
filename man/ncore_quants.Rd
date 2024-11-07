@@ -14,6 +14,6 @@ ncore_quants
 ncore_quants dataset
 }
 \author{
-Simeokn \email{simeon.ng@alaska.gov}
+Simeon \email{simeon.ng@alaska.gov}
 }
 \keyword{data}

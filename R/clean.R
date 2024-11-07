@@ -12,3 +12,25 @@ clean_pm25 <- function(data) {
       dplyr::select(date, pm25)
   )
 }
+
+#' Cleans Garden Quant Imported from AA
+#'
+#' @param data Tibble imported using the read_quant_flagged() function
+#' @param pod MODULAIR Pod #
+#'
+#' @return Clean tibble of Quant data.
+#' @export
+clean_garden_quant <- function(data, pod) {
+  data |>
+    dplyr::select(
+      Date,
+      ((starts_with(pod) & ends_with("Value")) & (!contains(c("NO_", "NO2_", "OZONE"))))
+    ) |>
+    rename_with(~ str_remove(., paste0(pod, "_"))) |>
+    rename_with(~ str_remove(., "_Value"))
+  # Convert columns to numeric
+  data <- data |>
+    dplyr::mutate_at(c(2:length(data)), as.numeric)
+
+  return(data)
+}
