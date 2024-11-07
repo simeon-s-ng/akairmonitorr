@@ -24,13 +24,32 @@ clean_garden_quant <- function(data, pod) {
   data |>
     dplyr::select(
       Date,
-      ((starts_with(pod) & ends_with("Value")) & (!contains(c("NO_", "NO2_", "OZONE"))))
+      ((dplyr::starts_with(pod) & dplyr::ends_with("Value")) & (!dplyr::contains(c("NO_", "NO2_", "OZONE"))))
     ) |>
-    rename_with(~ str_remove(., paste0(pod, "_"))) |>
-    rename_with(~ str_remove(., "_Value"))
+    dplyr::rename_with(~ stringr::str_remove(., paste0(pod, "_"))) |>
+    dplyr::rename_with(~ stringr::str_remove(., "_Value"))
   # Convert columns to numeric
   data <- data |>
     dplyr::mutate_at(c(2:length(data)), as.numeric)
 
   return(data)
 }
+
+#' Cleans NCore Quant Imported from AA
+#'
+#' @param data Tibble imported using the read_quant_flagged() function
+#' @param pod MODULAIR Pod #
+#'
+#' @return Clean tibble of Quant data.
+#' @export
+clean_ncore_quant <- function(data, pod) {
+  dplyr::select(Date, (dplyr::starts_with(pod) & dplyr::ends_with("Value"))) |>
+    dplyr::rename_with(~ stringr::str_remove(., paste0(pod, "_"))) |>
+    dplyr::rename_with(~ stringr::str_remove(., "_Value"))
+  # Convert columns to numeric
+  data <- data |>
+    dplyr::mutate_at(c(2:length(data)), as.numeric)
+
+  return(data)
+}
+

@@ -3,6 +3,7 @@
 export("%>%")
 export(agileweb_dt)
 export(clean_garden_quant)
+export(clean_ncore_quant)
 export(clean_pm25)
 export(plot_quant_pm25)
 export(plot_wind_rose)
