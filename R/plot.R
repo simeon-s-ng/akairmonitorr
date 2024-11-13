@@ -33,6 +33,26 @@ plot_quant_pm25 <- function(data, town, cols = NULL, ...) {
   )
 }
 
+#' PM2.5 Time Series Plot for any Monitor(s)
+#'
+#' @param data PM2.5 Dataset. Must be in 'Date | PM25 | Monitor' form.
+#' @param title Title of the plot.
+#'
+#' @return A PM2.5 time series ggplot
+#' @export
+plot_pm25_ts_monitor <- function(data, title) {
+  ggplot2::ggplot(data) +
+      ggplot2::geom_point(
+        ggplot2::aes(x = Date, y = PM25, color = Monitor, shape = Monitor),
+        alpha = 0.33,
+        show.legend = TRUE
+      ) +
+      ggplot2::scale_x_datetime("Date", date_breaks = "1 month", date_labels = "%b") +
+      ggthemes::scale_color_fivethirtyeight() +
+      ggthemes::theme_fivethirtyeight() +
+      ggplot2::ggtitle("Quant vs. BAM Hourly Average PM2.5 Concentration 4/16 - 11/06")
+}
+
 #' DEC AMQA Wind Rose
 #'
 #' @param data Wind speed and wind direction data. Must have column names ("date", "wd", "ws").

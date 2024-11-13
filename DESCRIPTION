@@ -19,7 +19,9 @@ Imports:
     openair,
     readr,
     httr2,
-    stringr
+    stringr,
+    ggplot2,
+    ggthemes
 RoxygenNote: 7.3.2
 Suggests: 
     testthat (>= 3.0.0)
