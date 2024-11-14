@@ -1,3 +1,29 @@
+#' Linear Model Plot for any Pollutant & Monitor(s)
+#'
+#' @param data Pollutant Dataset. Must be in 'Date | Quant | BAM' form.
+#' @param title Title of the plot.
+#' @param xlab X axis label.
+#' @param ylab Y axis label.
+#' @param caption Equation caption.
+#'
+#' @return A Linear Model ggplot
+#' @export
+plot_lm <- function(data, title, xlab, ylab, caption) {
+  ggplot2::ggplot(data, ggplot2::aes(x = BAM, y = Quant)) +
+    ggplot2::geom_point(
+      alpha = 0.33,
+      show.legend = TRUE
+    ) +
+    ggplot2::geom_smooth(method = lm) +
+    ggthemes::scale_color_fivethirtyeight() +
+    ggplot2::theme_minimal() +
+    ggplot2::ggtitle(title) +
+    ggplot2::labs(x = xlab, y = ylab, caption = caption) +
+    ggplot2::theme(title = ggplot2::element_text(size = 8))
+}
+
+# ---- PM2.5 PLOTS =============================================================
+
 #' Quant PM25 Temporal Plot
 #'
 #' @param data Quant data in Agilaire basic data export format.
@@ -50,8 +76,55 @@ plot_pm25_ts_monitor <- function(data, title) {
       ggplot2::scale_x_datetime("Date", date_breaks = "1 month", date_labels = "%b") +
       ggthemes::scale_color_fivethirtyeight() +
       ggthemes::theme_fivethirtyeight() +
-      ggplot2::ggtitle("Quant vs. BAM Hourly Average PM2.5 Concentration 4/16 - 11/06")
+      ggplot2::ggtitle(title) +
+      ggplot2::theme(title = ggplot2::element_text(size = 8))
 }
+
+
+#' PM2.5 Box Plot for any Monitor(s)
+#'
+#' @param data PM2.5 Dataset. Must be in 'Date | PM25 | Monitor' form.
+#' @param title Title of the plot.
+#'
+#' @return A PM2.5 boxplot.
+#' @export
+plot_pm25_box_monitor <- function(data, title) {
+  ggplot2::ggplot(data) +
+      ggplot2::geom_boxplot(
+        ggplot2::aes(x = Monitor, y = PM25, color = Monitor, shape = Monitor),
+        show.legend = TRUE,
+        outlier.shape = 1
+      ) +
+      ggthemes::scale_color_fivethirtyeight() +
+      ggthemes::theme_fivethirtyeight() +
+      ggplot2::ggtitle(title) +
+      ggplot2::theme(title = ggplot2::element_text(size = 8))
+}
+
+# ---- PM10 PLOTS ==============================================================
+
+#' PM10 Time Series plot for any Monitor(s)
+#'
+#' @param data PM2.5 Dataset. Must be in 'Date | PM10 | Monitor' form.
+#' @param title Title of plot.
+#'
+#' @return A pm10 time series ggplot
+#' @export
+plot_pm10_ts_monitor <- function(data, title) {
+  ggplot2::ggplot(data) +
+    ggplot2::geom_point(
+      ggplot2::aes(x = Date, y = PM10, color = Monitor, shape = Monitor),
+      alpha = 0.33,
+      show.legend = TRUE
+    ) +
+    ggplot2::scale_x_datetime("Date", date_breaks = "1 month", date_labels = "%b") +
+    ggthemes::scale_color_fivethirtyeight() +
+    ggthemes::theme_fivethirtyeight() +
+    ggplot2::ggtitle(title) +
+    ggplot2::theme(title = ggplot2::element_text(size = 8))
+}
+
+# ---- MET PLOTS ===============================================================
 
 #' DEC AMQA Wind Rose
 #'

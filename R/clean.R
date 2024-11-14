@@ -79,3 +79,47 @@ clean_regulatory <- function(data) {
   return(data)
 }
 
+#' Cleans a Joined Quant/BAM dataset for PM2.5
+#'
+#' @param data A joined Quant/BAM dataset
+#'
+#' @return A cleaned PM2.5 dataset
+#' @export
+clean_pm25_qt_bam <- function(data) {
+  pm25_data <- data |>
+    dplyr::select(
+      Date = Date,
+      PM25QT = PM25,
+      PM25RG = PM25L,
+      AMBTEMP = AMBTEMP_REG,
+      RELHUM = RELHUM_REG,
+      DEWPT = DEWPT_REG
+    ) |>
+    tidyr::pivot_longer(cols = c(PM25QT, PM25RG), names_to = "Monitor", values_to = "PM25") |>
+    dplyr::mutate(Monitor = dplyr::if_else(Monitor == "PM25QT", "Quant", "BAM"))
+
+  return(pm25_data)
+}
+
+#' Cleans a Joined Quant/BAM dataset for PM10
+#'
+#' @param data A joined Quant/BAM dataset
+#'
+#' @return A cleaned PM2.5 dataset
+#' @export
+clean_pm10_qt_bam <- function(data) {
+  pm10_data <- data |>
+    dplyr::select(
+      Date = Date,
+      PM10QT = PM10_CONTIN,
+      PM10RG = PM10L,
+      AMBTEMP = AMBTEMP_REG,
+      RELHUM = RELHUM_REG,
+      DEWPT = DEWPT_REG
+    ) |>
+    tidyr::pivot_longer(cols = c(PM10QT, PM10RG), names_to = "Monitor", values_to = "PM10") |>
+    dplyr::mutate(Monitor = dplyr::if_else(Monitor == "PM10QT", "Quant", "BAM"))
+
+  return(pm10_data)
+}
+
