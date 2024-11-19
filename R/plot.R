@@ -1,3 +1,27 @@
+#' Custom DEC ggplot2 Theme
+#'
+#' @return A ggplot2 custom theme
+#' @export
+#'
+dec_plot_theme <- function() {
+  ggplot2::theme(
+    # border
+    panel.border = ggplot2::element_rect(fill = NA, color = "#3f78a7", linewidth = 1, linetype = 1),
+    # background color
+    panel.background = ggplot2::element_rect(fill = "#f7f5f2"),
+    plot.background = ggplot2::element_rect(fill = "#f7f5f2"),
+    # grid
+    panel.grid.major.x = ggplot2::element_line(color = "#a1b9ed", linewidth = 0.5, linetype = 1),
+    panel.grid.minor.x = ggplot2::element_blank(),
+    panel.grid.major.y = ggplot2::element_line(color = "#a1b9ed", linewidth = 0.5, linetype = 1),
+    panel.grid.minor.y = ggplot2::element_blank(),
+    # axis
+    axis.ticks = ggplot2::element_line(color = "#3f78a7"),
+    # title
+    title = ggplot2::element_text(size = 8)
+  )
+}
+
 #' Linear Model Plot for any Pollutant & Monitor(s)
 #'
 #' @param data Pollutant Dataset. Must be in 'Date | Quant | BAM' form.
@@ -15,11 +39,10 @@ plot_lm <- function(data, title, xlab, ylab, caption) {
       show.legend = TRUE
     ) +
     ggplot2::geom_smooth(method = lm) +
-    ggthemes::scale_color_fivethirtyeight() +
-    ggplot2::theme_minimal() +
+    ggthemes::scale_color_gdocs() +
     ggplot2::ggtitle(title) +
     ggplot2::labs(x = xlab, y = ylab, caption = caption) +
-    ggplot2::theme(title = ggplot2::element_text(size = 8))
+    akairmonitorr::dec_plot_theme()
 }
 
 # ---- PM2.5 PLOTS =============================================================
@@ -74,10 +97,9 @@ plot_pm25_ts_monitor <- function(data, title) {
         show.legend = TRUE
       ) +
       ggplot2::scale_x_datetime("Date", date_breaks = "1 month", date_labels = "%b") +
-      ggthemes::scale_color_fivethirtyeight() +
-      ggthemes::theme_fivethirtyeight() +
+      ggthemes::scale_color_gdocs() +
       ggplot2::ggtitle(title) +
-      ggplot2::theme(title = ggplot2::element_text(size = 8))
+      akairmonitorr::dec_plot_theme()
 }
 
 
@@ -95,10 +117,9 @@ plot_pm25_box_monitor <- function(data, title) {
         show.legend = TRUE,
         outlier.shape = 1
       ) +
-      ggthemes::scale_color_fivethirtyeight() +
-      ggthemes::theme_fivethirtyeight() +
+      ggthemes::scale_color_gdocs() +
       ggplot2::ggtitle(title) +
-      ggplot2::theme(title = ggplot2::element_text(size = 8))
+      akairmonitorr::dec_plot_theme()
 }
 
 # ---- PM10 PLOTS ==============================================================
@@ -118,10 +139,9 @@ plot_pm10_ts_monitor <- function(data, title) {
       show.legend = TRUE
     ) +
     ggplot2::scale_x_datetime("Date", date_breaks = "1 month", date_labels = "%b") +
-    ggthemes::scale_color_fivethirtyeight() +
-    ggthemes::theme_fivethirtyeight() +
+    ggthemes::scale_color_gdocs() +
     ggplot2::ggtitle(title) +
-    ggplot2::theme(title = ggplot2::element_text(size = 8))
+    akairmonitorr::dec_plot_theme()
 }
 
 # ---- MET PLOTS ===============================================================
