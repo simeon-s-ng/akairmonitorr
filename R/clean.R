@@ -7,9 +7,9 @@
 clean_pm25 <- function(data) {
   return(
     data |>
-      dplyr::rename(date = Date, pm25 = ReportValue) |>
+      dplyr::rename(date = Date, site_name = SiteName, pm25 = ReportValue) |>
       dplyr::filter(!is.na(pm25), IsValid == TRUE) |>
-      dplyr::select(date, pm25)
+      dplyr::select(date, site_name, pm25)
   )
 }
 

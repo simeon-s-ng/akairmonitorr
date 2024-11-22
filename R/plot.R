@@ -1,3 +1,5 @@
+# ---- PLOT HELPERS ============================================================
+
 #' Custom DEC ggplot2 Theme
 #'
 #' @return A ggplot2 custom theme
@@ -10,6 +12,7 @@ dec_plot_theme <- function() {
     # background color
     panel.background = ggplot2::element_rect(fill = "#f7f5f2"),
     plot.background = ggplot2::element_rect(fill = "#f7f5f2"),
+    legend.background = ggplot2::element_rect(fill = "#f7f5f2"),
     # grid
     panel.grid.major.x = ggplot2::element_line(color = "#a1b9ed", linewidth = 0.5, linetype = 1),
     panel.grid.minor.x = ggplot2::element_blank(),
@@ -102,7 +105,6 @@ plot_pm25_ts_monitor <- function(data, title) {
       akairmonitorr::dec_plot_theme()
 }
 
-
 #' PM2.5 Box Plot for any Monitor(s)
 #'
 #' @param data PM2.5 Dataset. Must be in 'Date | PM25 | Monitor' form.
@@ -120,6 +122,152 @@ plot_pm25_box_monitor <- function(data, title) {
       ggthemes::scale_color_gdocs() +
       ggplot2::ggtitle(title) +
       akairmonitorr::dec_plot_theme()
+}
+
+#' Diurnal Plot
+#'
+#' @param data Data for plot.
+#' @param pollutant Pollutant name as a string.
+#' @param sites Site name or list of sites.
+#' @param title Title for plot.
+#'
+#' @return
+#' @export
+plot_diurnal <- function(data, pollutant, sites, title) {
+  # Initial Cleaning ----
+  diurnal_data <- data |>
+    filter(site_name %in% sites) |>
+    rename(site = site_name) |>
+    mutate(
+      hour = hour(date),
+      day = wday(date, week_start = 1),
+      day_name = wday(date, label = TRUE, week_start = 1),
+      month = month(date)
+    )
+
+  # Grouped by hours
+  diurnal_hour <- diurnal_data |>
+    group_by(site, hour) |>
+    summarise("{pollutant}" := mean(.data[[pollutant]]))
+
+  # Grouped by hour-weekdays
+  diurnal_hour_week <- diurnal_data |>
+    group_by(site, hour, day, day_name) |>
+    summarise("{pollutant}" := mean(.data[[pollutant]]))
+
+  # Grouped by weekday
+  diurnal_wd <- diurnal_data |>
+    group_by(site, day, day_name) |>
+    summarise("{pollutant}" := mean(.data[[pollutant]]))
+
+  # Grouped by month
+  diurnal_month <- diurnal_data |>
+    group_by(site, month) |>
+    summarise("{pollutant}" := mean(.data[[pollutant]])) |>
+    mutate(month = parse_date_time(month, "m"))
+
+  # Plots ----
+
+  hw_plot <- diurnal_hour_week |>
+    ggplot(aes(hour, .data[[pollutant]], color = site)) +
+      geom_line(linewidth = 1, lineend = "round") +
+      scale_x_continuous(expand = c(0, 0), breaks = seq(0, 23, 6)) +
+      scale_y_continuous(
+        expand = c(0, 0),
+        "PM2.5 (µg/m³)",
+        limits = c(
+          0.9 * min(subset(diurnal_hour_week, select = pollutant)),
+          1.1 * max(subset(diurnal_hour_week, select = pollutant))
+        )
+      ) +
+      scale_color_brewer(palette = "Set1") +
+      dec_plot_theme() +
+      facet_wrap(vars(day_name), nrow = 1) +
+      theme(
+        plot.margin = margin(0, 0, 0, 0, 'pt'),
+        panel.spacing = unit(0, "lines")
+      )
+
+  h_plot <- diurnal_hour |>
+    ggplot(aes(hour, .data[[pollutant]], color = site)) +
+      geom_line(linewidth = 1, lineend = "round") +
+      scale_x_continuous(expand = c(0, 0), breaks = seq(0, 23, 6)) +
+      scale_y_continuous(
+        expand = c(0, 0),
+        "PM2.5 (µg/m³)",
+        limits = c(
+          0.9 * min(subset(diurnal_hour, select = pollutant)),
+          1.1 * max(subset(diurnal_hour, select = pollutant))
+        )
+      ) +
+      scale_color_brewer(palette = "Set1") +
+      dec_plot_theme() +
+      theme(
+        plot.margin = margin(1.5, 1.5, 1.5, 1.5, 'pt'),
+        panel.spacing = unit(0, "lines")
+      )
+
+  m_plot <- diurnal_month |>
+    ggplot(aes(month, .data[[pollutant]], color = site)) +
+      geom_line(linewidth = 1, lineend = "round") +
+      scale_x_datetime(
+        expand = c(0, 0),
+        labels = date_format("%b")
+      ) +
+      scale_y_continuous(
+        expand = c(0, 0),
+        "PM2.5 (µg/m³)",
+        limits = c(
+          0.9 * min(subset(diurnal_month, select = pollutant)),
+          1.1 * max(subset(diurnal_month, select = pollutant))
+        )
+      ) +
+      scale_color_brewer(palette = "Set1") +
+      dec_plot_theme() +
+      theme(
+        plot.margin = margin(1.5, 1.5, 1.5, 1.5, 'pt'),
+        panel.spacing = unit(0, "lines")
+      )
+
+  wd_plot <- diurnal_wd |>
+    ggplot(aes(day, .data[[pollutant]], color = site)) +
+      geom_line(linewidth = 1, lineend = "round") +
+      scale_x_continuous(
+        expand = c(0, 0),
+        labels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+      ) +
+      scale_y_continuous(
+        expand = c(0, 0),
+        "PM2.5 (µg/m³)",
+        limits = c(
+          0.9 * min(subset(diurnal_wd, select = pollutant)),
+          1.1 * max(subset(diurnal_wd, select = pollutant))
+        )
+      ) +
+      scale_color_brewer(palette = "Set1") +
+      dec_plot_theme() +
+      theme(
+        plot.margin = margin(1.5, 1.5, 1.5, 1.5, 'pt'),
+        panel.spacing = unit(0, "lines")
+      )
+
+  diurnal_patched <- hw_plot /
+    (h_plot + m_plot + wd_plot +
+      plot_layout(
+        axis_titles = "collect_y",
+        guides = "collect"
+      )
+    ) +
+    plot_layout(
+      guides = "collect"
+    ) +
+    plot_annotation(
+      title = title,
+      theme = theme(plot.title = element_text(hjust = 0.5))
+    ) &
+    theme(legend.position = 'bottom')
+
+  return(diurnal_patched)
 }
 
 # ---- PM10 PLOTS ==============================================================
@@ -143,6 +291,8 @@ plot_pm10_ts_monitor <- function(data, title) {
     ggplot2::ggtitle(title) +
     akairmonitorr::dec_plot_theme()
 }
+
+
 
 # ---- MET PLOTS ===============================================================
 
