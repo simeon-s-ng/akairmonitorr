@@ -15,6 +15,9 @@ plot_diurnal(data, pollutant, sites, title)
 
 \item{title}{Title for plot.}
 }
+\value{
+A Compilation of Diurnal Plots.
+}
 \description{
 Diurnal Plot
 }

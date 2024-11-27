@@ -7,12 +7,12 @@
 plot_pm10_ts_monitor(data, title)
 }
 \arguments{
-\item{data}{PM2.5 Dataset. Must be in 'Date | PM10 | Monitor' form.}
+\item{data}{PM10 Dataset. Must be in 'Date | PM10 | Monitor' form.}
 
 \item{title}{Title of plot.}
 }
 \value{
-A pm10 time series ggplot
+A PM10 time series ggplot
 }
 \description{
 PM10 Time Series plot for any Monitor(s)

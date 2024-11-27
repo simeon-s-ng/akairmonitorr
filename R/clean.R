@@ -105,7 +105,7 @@ clean_pm25_qt_bam <- function(data) {
 #'
 #' @param data A joined Quant/BAM dataset
 #'
-#' @return A cleaned PM2.5 dataset
+#' @return A cleaned CO dataset
 #' @export
 clean_pm10_qt_bam <- function(data) {
   pm10_data <- data |>
@@ -121,5 +121,46 @@ clean_pm10_qt_bam <- function(data) {
     dplyr::mutate(Monitor = dplyr::if_else(Monitor == "PM10QT", "Quant", "BAM"))
 
   return(pm10_data)
+}
+
+#' Cleans a Joined Quant/BAM dataset for CO
+#'
+#' @param data A joined Quant/BAM dataset
+#'
+#' @return A cleaned CO dataset
+#' @export
+clean_co_qt_bam <- function(data) {
+  co_data <- data |>
+    dplyr::select(
+      Date = Date,
+      COQT = CO_PPM_QT,
+      CORG = CO_PPM_REG,
+      PM10RG = PM10L,
+      AMBTEMP = AMBTEMP_REG,
+      RELHUM = RELHUM_REG,
+      DEWPT = DEWPT_REG
+    ) |>
+    tidyr::pivot_longer(cols = c(COQT, CORG), names_to = "Monitor", values_to = "CO") |>
+    dplyr::mutate(Monitor = dplyr::if_else(Monitor == "COQT", "Quant", "BAM"))
+
+  return(co_data)
+}
+
+#' Create a Joined Quant Dataset
+#'
+#' @param quant1 Quant 1 dataset
+#' @param quant2 Quant 2 dataset
+#' @param suffixes Quant SNs
+#'
+#' @return A cleaned Quant/Quant dataset
+#' @export
+clean_qt_to_qt <- function(quant1, quant2, suffixes) {
+  quant1 <- quant1 |>
+    dplyr::mutate(Monitor = suffixes[1])
+  quant2 <- quant2 |>
+    dplyr::mutate(Monitor = suffixes[2])
+
+  quants <- dplyr::bind_rows(quant1, quant2)
+  return(quants)
 }
 

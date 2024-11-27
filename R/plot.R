@@ -25,6 +25,8 @@ dec_plot_theme <- function() {
   )
 }
 
+# ---- GENERIC PLOTS ===========================================================
+
 #' Linear Model Plot for any Pollutant & Monitor(s)
 #'
 #' @param data Pollutant Dataset. Must be in 'Date | Quant | BAM' form.
@@ -45,7 +47,69 @@ plot_lm <- function(data, title, xlab, ylab, caption) {
     ggthemes::scale_color_gdocs() +
     ggplot2::ggtitle(title) +
     ggplot2::labs(x = xlab, y = ylab, caption = caption) +
-    akairmonitorr::dec_plot_theme()
+    akairmonitorr::dec_plot_theme() +
+    ggplot2::theme(plot.caption = ggplot2::element_text(size = 8))
+}
+
+#' Linear Model Plot for any Pollutant & Monitor(s)
+#'
+#' @param data Pollutant Dataset. Must be in 'Date | Monitor | Pollutant' form.
+#' @param title Title of the plot.
+#' @param ind Independent variable.
+#' @param dep Dependent variable.
+#' @param pollutant Pollutant to compare.
+#'
+#' @return A Linear Model ggplot
+#' @export
+plot_lm_quant <- function(data, title, ind, dep, pollutant) {
+  plot_data <- data |>
+    dplyr::select(Date, Monitor, dplyr::any_of(pollutant)) |>
+    tidyr::pivot_wider(id_cols = Date, names_from = Monitor, values_from = .data[[pollutant]])
+
+  renameX <- paste0("Quant_", ind)
+  renameY <- paste0("Quant_", dep)
+
+  plot_data <- plot_data |>
+    dplyr::rename(!!renameX := .data[[ind]], !!renameY := .data[[dep]])
+
+  model <- parsnip::linear_reg()
+  formula <- paste0(renameY, ' ~ ', renameX) |>
+    as.formula()
+  fit <- model |>
+    parsnip::fit(formula, data = plot_data)
+
+  fit_tidy <- parsnip::tidy(fit)
+  fit_glance <- parsnip::glance(fit)
+
+  fit_int   <- fit_tidy$estimate[1]
+  fit_slope <- fit_tidy$estimate[2]
+  fit_r2    <- fit_glance$r.squared
+  fit_rmse  <- yardstick::rmse(plot_data, renameX, renameY)
+
+  caption <- paste0(
+      "y = ",
+      round(fit_slope, digits = 3),
+      "x + ",
+      round(fit_int, digits = 3),
+      "\n",
+      "r\u00b2 = ",
+      round(fit_r2, digits = 3)
+    )
+
+  xlab <- paste0(renameX, "_", pollutant)
+  ylab <- paste0(renameY, "_", pollutant)
+
+  ggplot2::ggplot(plot_data, ggplot2::aes(x = .data[[renameX]], y = .data[[renameY]])) +
+    ggplot2::geom_point(
+      alpha = 0.33,
+      show.legend = TRUE
+    ) +
+    ggplot2::geom_smooth(method = lm) +
+    ggthemes::scale_color_gdocs() +
+    ggplot2::ggtitle(title) +
+    ggplot2::labs(x = xlab, y = ylab, caption = caption) +
+    akairmonitorr::dec_plot_theme() +
+    ggplot2::theme(plot.caption = ggplot2::element_text(size = 8))
 }
 
 # ---- PM2.5 PLOTS =============================================================
@@ -100,6 +164,7 @@ plot_pm25_ts_monitor <- function(data, title) {
         show.legend = TRUE
       ) +
       ggplot2::scale_x_datetime("Date", date_breaks = "1 month", date_labels = "%b") +
+      ggplot2::ylab("PM2.5 (\u03bcg/m\u00b3)") +
       ggthemes::scale_color_gdocs() +
       ggplot2::ggtitle(title) +
       akairmonitorr::dec_plot_theme()
@@ -131,7 +196,7 @@ plot_pm25_box_monitor <- function(data, title) {
 #' @param sites Site name or list of sites.
 #' @param title Title for plot.
 #'
-#' @return
+#' @return A Compilation of Diurnal Plots.
 #' @export
 plot_diurnal <- function(data, pollutant, sites, title) {
   # Initial Cleaning ----
@@ -174,7 +239,7 @@ plot_diurnal <- function(data, pollutant, sites, title) {
       scale_x_continuous(expand = c(0, 0), breaks = seq(0, 23, 6)) +
       scale_y_continuous(
         expand = c(0, 0),
-        "PM2.5 (µg/m³)",
+        "PM2.5 (\u03bcg/m\u00b3)",
         limits = c(
           0.9 * min(subset(diurnal_hour_week, select = pollutant)),
           1.1 * max(subset(diurnal_hour_week, select = pollutant))
@@ -194,7 +259,7 @@ plot_diurnal <- function(data, pollutant, sites, title) {
       scale_x_continuous(expand = c(0, 0), breaks = seq(0, 23, 6)) +
       scale_y_continuous(
         expand = c(0, 0),
-        "PM2.5 (µg/m³)",
+        "PM2.5 (\u03bcg/m\u00b3)",
         limits = c(
           0.9 * min(subset(diurnal_hour, select = pollutant)),
           1.1 * max(subset(diurnal_hour, select = pollutant))
@@ -216,7 +281,7 @@ plot_diurnal <- function(data, pollutant, sites, title) {
       ) +
       scale_y_continuous(
         expand = c(0, 0),
-        "PM2.5 (µg/m³)",
+        "PM2.5 (\u03bcg/m\u00b3)",
         limits = c(
           0.9 * min(subset(diurnal_month, select = pollutant)),
           1.1 * max(subset(diurnal_month, select = pollutant))
@@ -238,7 +303,7 @@ plot_diurnal <- function(data, pollutant, sites, title) {
       ) +
       scale_y_continuous(
         expand = c(0, 0),
-        "PM2.5 (µg/m³)",
+        "PM2.5 (\u03bcg/m\u00b3)",
         limits = c(
           0.9 * min(subset(diurnal_wd, select = pollutant)),
           1.1 * max(subset(diurnal_wd, select = pollutant))
@@ -274,10 +339,10 @@ plot_diurnal <- function(data, pollutant, sites, title) {
 
 #' PM10 Time Series plot for any Monitor(s)
 #'
-#' @param data PM2.5 Dataset. Must be in 'Date | PM10 | Monitor' form.
+#' @param data PM10 Dataset. Must be in 'Date | PM10 | Monitor' form.
 #' @param title Title of plot.
 #'
-#' @return A pm10 time series ggplot
+#' @return A PM10 time series ggplot
 #' @export
 plot_pm10_ts_monitor <- function(data, title) {
   ggplot2::ggplot(data) +
@@ -287,12 +352,77 @@ plot_pm10_ts_monitor <- function(data, title) {
       show.legend = TRUE
     ) +
     ggplot2::scale_x_datetime("Date", date_breaks = "1 month", date_labels = "%b") +
+    ggplot2::ylab('PM10 (\u03bcg/m\u00b3)') +
     ggthemes::scale_color_gdocs() +
     ggplot2::ggtitle(title) +
     akairmonitorr::dec_plot_theme()
 }
 
+# ---- CO PLOTS ================================================================
+#' CO Time Series plot for any Monitor(s)
+#'
+#' @param data CO Dataset. Must be in 'Date | CO | Monitor' form.
+#' @param title Title of plot.
+#'
+#' @return A CO time series ggplot
+#' @export
+plot_co_ts_monitor <- function(data, title) {
+  ggplot2::ggplot(data) +
+    ggplot2::geom_point(
+      ggplot2::aes(x = Date, y = CO, color = Monitor, shape = Monitor),
+      alpha = 0.33,
+      show.legend = TRUE
+    ) +
+    ggplot2::scale_x_datetime("Date", date_breaks = "1 month", date_labels = "%b") +
+    ggplot2::ylab('CO (ppm)') +
+    ggthemes::scale_color_gdocs() +
+    ggplot2::ggtitle(title) +
+    akairmonitorr::dec_plot_theme()
+}
 
+# ---- NO Plots ================================================================
+#' NO Time Series plot for any Monitor(s)
+#'
+#' @param data NO Dataset. Must be in 'Date | NO | Monitor' form.
+#' @param title Title of plot.
+#'
+#' @return A NO time series ggplot
+#' @export
+plot_no_ts_monitor <- function(data, title) {
+  ggplot2::ggplot(data) +
+    ggplot2::geom_point(
+      ggplot2::aes(x = Date, y = NO, color = Monitor, shape = Monitor),
+      alpha = 0.33,
+      show.legend = TRUE
+    ) +
+    ggplot2::scale_x_datetime("Date", date_breaks = "1 month", date_labels = "%b") +
+    ggplot2::ylab('NO (ppm)') +
+    ggthemes::scale_color_gdocs() +
+    ggplot2::ggtitle(title) +
+    akairmonitorr::dec_plot_theme()
+}
+
+# ---- O3 Plots ================================================================
+#' O3 Time Series plot for any Monitor(s)
+#'
+#' @param data O3 Dataset. Must be in 'Date | O3 | Monitor' form.
+#' @param title Title of plot.
+#'
+#' @return A O3 time series ggplot
+#' @export
+plot_o3_ts_monitor <- function(data, title) {
+  ggplot2::ggplot(data) +
+    ggplot2::geom_point(
+      ggplot2::aes(x = Date, y = O3, color = Monitor, shape = Monitor),
+      alpha = 0.33,
+      show.legend = TRUE
+    ) +
+    ggplot2::scale_x_datetime("Date", date_breaks = "1 month", date_labels = "%b") +
+    ggplot2::ylab('O3 (ppb)') +
+    ggthemes::scale_color_gdocs() +
+    ggplot2::ggtitle(title) +
+    akairmonitorr::dec_plot_theme()
+}
 
 # ---- MET PLOTS ===============================================================
 
