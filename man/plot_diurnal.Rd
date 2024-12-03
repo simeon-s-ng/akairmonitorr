@@ -4,7 +4,7 @@
 \alias{plot_diurnal}
 \title{Diurnal Plot}
 \usage{
-plot_diurnal(data, pollutant, sites, title)
+plot_diurnal(data, pollutant, sites, title, statistic)
 }
 \arguments{
 \item{data}{Data for plot.}
@@ -14,6 +14,8 @@ plot_diurnal(data, pollutant, sites, title)
 \item{sites}{Site name or list of sites.}
 
 \item{title}{Title for plot.}
+
+\item{statistic}{Select mean or median.}
 }
 \value{
 A Compilation of Diurnal Plots.

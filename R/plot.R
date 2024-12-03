@@ -195,10 +195,11 @@ plot_pm25_box_monitor <- function(data, title) {
 #' @param pollutant Pollutant name as a string.
 #' @param sites Site name or list of sites.
 #' @param title Title for plot.
+#' @param statistic Select mean or median.
 #'
 #' @return A Compilation of Diurnal Plots.
 #' @export
-plot_diurnal <- function(data, pollutant, sites, title) {
+plot_diurnal <- function(data, pollutant, sites, title, statistic) {
   # Initial Cleaning ----
   diurnal_data <- data |>
     dplyr::filter(site_name %in% sites) |>
@@ -210,26 +211,50 @@ plot_diurnal <- function(data, pollutant, sites, title) {
       month = lubridate::month(date)
     )
 
-  # Grouped by hours
-  diurnal_hour <- diurnal_data |>
-    dplyr::group_by(site, hour) |>
-    dplyr::summarise("{pollutant}" := mean(.data[[pollutant]]))
+  if (statistic == "mean") {
+    # Grouped by hours
+    diurnal_hour <- diurnal_data |>
+      dplyr::group_by(site, hour) |>
+      dplyr::summarise("{pollutant}" := mean(.data[[pollutant]]))
 
-  # Grouped by hour-weekdays
-  diurnal_hour_week <- diurnal_data |>
-    dplyr::group_by(site, hour, day, day_name) |>
-    dplyr::summarise("{pollutant}" := mean(.data[[pollutant]]))
+    # Grouped by hour-weekdays
+    diurnal_hour_week <- diurnal_data |>
+      dplyr::group_by(site, hour, day, day_name) |>
+      dplyr::summarise("{pollutant}" := mean(.data[[pollutant]]))
 
-  # Grouped by weekday
-  diurnal_wd <- diurnal_data |>
-    dplyr::group_by(site, day, day_name) |>
-    dplyr::summarise("{pollutant}" := mean(.data[[pollutant]]))
+    # Grouped by weekday
+    diurnal_wd <- diurnal_data |>
+      dplyr::group_by(site, day, day_name) |>
+      dplyr::summarise("{pollutant}" := mean(.data[[pollutant]]))
 
-  # Grouped by month
-  diurnal_month <- diurnal_data |>
-    dplyr::group_by(site, month) |>
-    dplyr::summarise("{pollutant}" := mean(.data[[pollutant]])) |>
-    dplyr::mutate(month = lubridate::parse_date_time(month, "m"))
+    # Grouped by month
+    diurnal_month <- diurnal_data |>
+      dplyr::group_by(site, month) |>
+      dplyr::summarise("{pollutant}" := mean(.data[[pollutant]])) |>
+      dplyr::mutate(month = lubridate::parse_date_time(month, "m"))
+  }
+  else if(statistic == "median") {
+    # Grouped by hours
+    diurnal_hour <- diurnal_data |>
+      dplyr::group_by(site, hour) |>
+      dplyr::summarise("{pollutant}" := median(.data[[pollutant]]))
+
+    # Grouped by hour-weekdays
+    diurnal_hour_week <- diurnal_data |>
+      dplyr::group_by(site, hour, day, day_name) |>
+      dplyr::summarise("{pollutant}" := median(.data[[pollutant]]))
+
+    # Grouped by weekday
+    diurnal_wd <- diurnal_data |>
+      dplyr::group_by(site, day, day_name) |>
+      dplyr::summarise("{pollutant}" := median(.data[[pollutant]]))
+
+    # Grouped by month
+    diurnal_month <- diurnal_data |>
+      dplyr::group_by(site, month) |>
+      dplyr::summarise("{pollutant}" := median(.data[[pollutant]])) |>
+      dplyr::mutate(month = lubridate::parse_date_time(month, "m"))
+  }
 
   # Plots ----
 
@@ -290,7 +315,7 @@ plot_diurnal <- function(data, pollutant, sites, title) {
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::theme(
-        plot.margin = ggplot2::margin(1.5, 1.5, 1.5, 1.5, 'pt'),
+        plot.margin = ggplot2::margin(1.5, 1.5, 1.5, 2.5, 'pt'),
         panel.spacing = ggplot2::unit(0, "lines")
       )
 
@@ -312,12 +337,12 @@ plot_diurnal <- function(data, pollutant, sites, title) {
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::theme(
-        plot.margin = ggplot2::margin(1.5, 1.5, 1.5, 1.5, 'pt'),
+        plot.margin = ggplot2::margin(1.5, 2.5, 1.5, 1.5, 'pt'),
         panel.spacing = ggplot2::unit(0, "lines")
       )
 
   diurnal_patched <- hw_plot /
-    (h_plot + m_plot + wd_plot +
+    (h_plot + wd_plot + m_plot +
       patchwork::plot_layout(
         axis_titles = "collect_y",
         guides = "collect"
@@ -329,6 +354,158 @@ plot_diurnal <- function(data, pollutant, sites, title) {
     patchwork::plot_annotation(
       title = title,
       theme = ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
+    ) &
+    ggplot2::theme(legend.position = 'bottom', plot.background = ggplot2::element_rect(fill = "#f7f5f2"))
+
+  return(diurnal_patched)
+}
+
+#' Diurnal Plot - Community Call
+#'
+#' @param data Quant data for plot
+#' @param site Quant sensor name
+#' @param start Start date
+#' @param end End date
+#' @param statistic Median or Mean
+#'
+#' @return Diurnal ggplot
+#' @export
+plot_diurnal_cc <- function(data, site, start, end, statistic) {
+  plot_data <- data |>
+    dplyr::filter(site_name == site, date >= start, date <= end, pm25 <= 50) |>
+    dplyr::rename(site = site_name) |>
+    dplyr::mutate(
+      hour = lubridate::hour(date),
+      day = lubridate::wday(date, week_start = 1),
+      day_name = lubridate::wday(date, label = TRUE, week_start = 1),
+      month = lubridate::month(date)
+    )
+
+  if (statistic == "mean") {
+    # Grouped by hours
+    diurnal_hour <- plot_data |>
+      dplyr::group_by(site, hour) |>
+      dplyr::summarise(pm25 = mean(pm25))
+
+    # Grouped by hour-weekdays
+    diurnal_hour_week <- plot_data |>
+      dplyr::group_by(site, hour, day, day_name) |>
+      dplyr::summarise(pm25 = mean(pm25))
+
+    # Grouped by weekday
+    diurnal_wd <- plot_data |>
+      dplyr::group_by(site, day, day_name) |>
+      dplyr::summarise(pm25 = mean(pm25))
+
+    # Grouped by month
+    diurnal_month <- plot_data |>
+      dplyr::group_by(site, month) |>
+      dplyr::summarise(pm25 = mean(pm25)) |>
+      dplyr::mutate(month = lubridate::parse_date_time(month, "m"))
+  }
+  else if(statistic == "median") {
+    # Grouped by hours
+    diurnal_hour <- plot_data |>
+      dplyr::group_by(site, hour) |>
+      dplyr::summarise(pm25 = median(pm25))
+
+    # Grouped by hour-weekdays
+    diurnal_hour_week <- plot_data |>
+      dplyr::group_by(site, hour, day, day_name) |>
+      dplyr::summarise(pm25 = median(pm25))
+
+    # Grouped by weekday
+    diurnal_wd <- plot_data |>
+      dplyr::group_by(site, day, day_name) |>
+      dplyr::summarise(pm25 = median(pm25))
+
+    # Grouped by month
+    diurnal_month <- plot_data |>
+      dplyr::group_by(site, month) |>
+      dplyr::summarise(pm25 = median(pm25)) |>
+      dplyr::mutate(month = lubridate::parse_date_time(month, "m"))
+  }
+
+  hw_plot <- diurnal_hour_week |>
+    ggplot2::ggplot(ggplot2::aes(hour, pm25, color = site)) +
+      ggplot2::geom_line(linewidth = 1, lineend = "round") +
+      ggplot2::scale_x_continuous(expand = c(0, 0), breaks = seq(0, 23, 6)) +
+      ggplot2::scale_y_continuous(
+        expand = c(0, 0),
+        "PM2.5 (\u03bcg/m\u00b3)",
+        limits = c(0, 35)
+      ) +
+      ggplot2::scale_color_brewer(palette = "Set1") +
+      akairmonitorr::dec_plot_theme() +
+      ggplot2::facet_wrap(ggplot2::vars(day_name), nrow = 1) +
+      ggplot2::theme(
+        plot.margin = ggplot2::margin(0, 0, 0, 0, 'pt'),
+        panel.spacing = ggplot2::unit(0, "lines")
+      )
+
+  h_plot <- diurnal_hour |>
+    ggplot2::ggplot(ggplot2::aes(hour, pm25, color = site)) +
+      ggplot2::geom_line(linewidth = 1, lineend = "round") +
+      ggplot2::scale_x_continuous(expand = c(0, 0), breaks = seq(0, 23, 6)) +
+      ggplot2::scale_y_continuous(
+        expand = c(0, 0),
+        "PM2.5 (\u03bcg/m\u00b3)",
+        limits = c(0, 35)
+      ) +
+      ggplot2::scale_color_brewer(palette = "Set1") +
+      akairmonitorr::dec_plot_theme() +
+      ggplot2::theme(
+        plot.margin = ggplot2::margin(1.5, 1.5, 1.5, 1.5, 'pt'),
+        panel.spacing = ggplot2::unit(0, "lines")
+      )
+
+  m_plot <- diurnal_month |>
+    ggplot2::ggplot(ggplot2::aes(month, pm25, color = site)) +
+      ggplot2::geom_line(linewidth = 1, lineend = "round") +
+      ggplot2::scale_x_datetime(
+        expand = c(0, 0),
+        labels = scales::date_format("%b")
+      ) +
+      ggplot2::scale_y_continuous(
+        expand = c(0, 0),
+        "PM2.5 (\u03bcg/m\u00b3)",
+        limits = c(0, 35)
+      ) +
+      ggplot2::scale_color_brewer(palette = "Set1") +
+      akairmonitorr::dec_plot_theme() +
+      ggplot2::theme(
+        plot.margin = ggplot2::margin(1.5, 1.5, 1.5, 2.5, 'pt'),
+        panel.spacing = ggplot2::unit(0, "lines")
+      )
+
+  wd_plot <- diurnal_wd |>
+    ggplot2::ggplot(ggplot2::aes(day, pm25, color = site)) +
+      ggplot2::geom_line(linewidth = 1, lineend = "round") +
+      ggplot2::scale_x_continuous(
+        expand = c(0, 0),
+        labels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+      ) +
+      ggplot2::scale_y_continuous(
+        expand = c(0, 0),
+        "PM2.5 (\u03bcg/m\u00b3)",
+        limits = c(0, 35)
+      ) +
+      ggplot2::scale_color_brewer(palette = "Set1") +
+      akairmonitorr::dec_plot_theme() +
+      ggplot2::theme(
+        plot.margin = ggplot2::margin(1.5, 2.5, 1.5, 1.5, 'pt'),
+        panel.spacing = ggplot2::unit(0, "lines")
+      )
+
+  diurnal_patched <- hw_plot /
+    (h_plot + wd_plot + m_plot +
+      patchwork::plot_layout(
+        axis_titles = "collect_y",
+        guides = "collect"
+      )
+    ) +
+    patchwork::plot_layout(
+      guides = "collect"
     ) &
     ggplot2::theme(legend.position = 'bottom', plot.background = ggplot2::element_rect(fill = "#f7f5f2"))
 
