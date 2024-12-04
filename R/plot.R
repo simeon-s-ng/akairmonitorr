@@ -435,6 +435,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
         "PM2.5 (\u03bcg/m\u00b3)",
         limits = c(0, 35)
       ) +
+      ggplot2::guides(fill = "none") +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::facet_wrap(ggplot2::vars(day_name), nrow = 1) +
@@ -452,6 +453,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
         "PM2.5 (\u03bcg/m\u00b3)",
         limits = c(0, 35)
       ) +
+      ggplot2::guides(fill = "none") +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::theme(
@@ -471,6 +473,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
         "PM2.5 (\u03bcg/m\u00b3)",
         limits = c(0, 35)
       ) +
+      ggplot2::guides(fill = "none") +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::theme(
@@ -490,6 +493,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
         "PM2.5 (\u03bcg/m\u00b3)",
         limits = c(0, 35)
       ) +
+      ggplot2::guides(fill = "none") +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::theme(
@@ -509,8 +513,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
     ) &
     ggplot2::theme(
       legend.position = 'bottom',
-      plot.background = ggplot2::element_rect(fill = "#f7f5f2"),
-      legend.position = 'none'
+      plot.background = ggplot2::element_rect(fill = "#f7f5f2")
     )
 
   return(diurnal_patched)
