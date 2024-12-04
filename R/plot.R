@@ -355,7 +355,12 @@ plot_diurnal <- function(data, pollutant, sites, title, statistic) {
       title = title,
       theme = ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
     ) &
-    ggplot2::theme(legend.position = 'bottom', plot.background = ggplot2::element_rect(fill = "#f7f5f2"))
+    ggplot2::theme(
+      legend.position = 'bottom',
+      panel.background = ggplot2::element_rect(fill = "#ffffff"),
+      plot.background = ggplot2::element_rect(fill = "#ffffff"),
+      legend.background = ggplot2::element_rect(fill = "#ffffff"),
+    )
 
   return(diurnal_patched)
 }
@@ -513,7 +518,9 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
     ) &
     ggplot2::theme(
       legend.position = 'bottom',
-      plot.background = ggplot2::element_rect(fill = "#f7f5f2")
+      panel.background = ggplot2::element_rect(fill = "#ffffff"),
+      plot.background = ggplot2::element_rect(fill = "#ffffff"),
+      legend.background = ggplot2::element_rect(fill = "#ffffff"),
     )
 
   return(diurnal_patched)
