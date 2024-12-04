@@ -372,7 +372,7 @@ plot_diurnal <- function(data, pollutant, sites, title, statistic) {
 #'
 #' @return Diurnal ggplot
 #' @export
-plot_diurnal_cc <- function(data, site, start, end, statistic) {
+plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
   plot_data <- data |>
     dplyr::filter(site_name %in% site, date >= start, date <= end, pm25 <= 50) |>
     dplyr::rename(site = site_name) |>
@@ -383,7 +383,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
       month = lubridate::month(date)
     )
 
-  if (statistic == "mean") {
+  if (statistic == "Mean") {
     # Grouped by hours
     diurnal_hour <- plot_data |>
       dplyr::group_by(site, hour) |>
@@ -405,7 +405,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
       dplyr::summarise(pm25 = mean(pm25)) |>
       dplyr::mutate(month = lubridate::parse_date_time(month, "m"))
   }
-  else if(statistic == "median") {
+  else if(statistic == "Median") {
     # Grouped by hours
     diurnal_hour <- plot_data |>
       dplyr::group_by(site, hour) |>
@@ -510,7 +510,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
       guides = "collect"
     ) +
     patchwork::plot_annotation(
-      title = paste0(site[1], " vs. ", site[2], " ", stringr::str_to_title(statistic), " PM2.5 Concentrations ", start, " to ", end),
+      title = title,
       theme = ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
     ) &
     ggplot2::theme(

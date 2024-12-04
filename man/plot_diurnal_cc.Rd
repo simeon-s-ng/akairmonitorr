@@ -4,7 +4,7 @@
 \alias{plot_diurnal_cc}
 \title{Diurnal Plot - Community Call}
 \usage{
-plot_diurnal_cc(data, site, start, end, statistic)
+plot_diurnal_cc(data, site, start, end, statistic, title)
 }
 \arguments{
 \item{data}{Quant data for plot}
