@@ -10,9 +10,9 @@ dec_plot_theme <- function() {
     # border
     panel.border = ggplot2::element_rect(fill = NA, color = "#3f78a7", linewidth = 1, linetype = 1),
     # background color
-    panel.background = ggplot2::element_rect(fill = "#f7f5f2"),
-    plot.background = ggplot2::element_rect(fill = "#f7f5f2"),
-    legend.background = ggplot2::element_rect(fill = "#f7f5f2"),
+    # panel.background = ggplot2::element_rect(fill = "#f7f5f2"),
+    # plot.background = ggplot2::element_rect(fill = "#f7f5f2"),
+    # legend.background = ggplot2::element_rect(fill = "#f7f5f2"),
     # grid
     panel.grid.major.x = ggplot2::element_line(color = "#a1b9ed", linewidth = 0.5, linetype = 1),
     panel.grid.minor.x = ggplot2::element_blank(),
@@ -356,10 +356,7 @@ plot_diurnal <- function(data, pollutant, sites, title, statistic) {
       theme = ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
     ) &
     ggplot2::theme(
-      legend.position = 'bottom',
-      panel.background = ggplot2::element_rect(fill = "#ffffff"),
-      plot.background = ggplot2::element_rect(fill = "#ffffff"),
-      legend.background = ggplot2::element_rect(fill = "#ffffff"),
+      legend.position = 'bottom'
     )
 
   return(diurnal_patched)
@@ -377,7 +374,7 @@ plot_diurnal <- function(data, pollutant, sites, title, statistic) {
 #' @export
 plot_diurnal_cc <- function(data, site, start, end, statistic) {
   plot_data <- data |>
-    dplyr::filter(site_name == site, date >= start, date <= end, pm25 <= 50) |>
+    dplyr::filter(site_name %in% site, date >= start, date <= end, pm25 <= 50) |>
     dplyr::rename(site = site_name) |>
     dplyr::mutate(
       hour = lubridate::hour(date),
@@ -433,7 +430,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
 
   hw_plot <- diurnal_hour_week |>
     ggplot2::ggplot(ggplot2::aes(hour, pm25, color = site)) +
-      ggplot2::geom_line(linewidth = 1, lineend = "round", show.legend = FALSE) +
+      ggplot2::geom_line(linewidth = 1, lineend = "round") +
       ggplot2::scale_x_continuous(expand = c(0, 0), breaks = seq(0, 23, 6)) +
       ggplot2::scale_y_continuous(
         expand = c(0, 0),
@@ -450,7 +447,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
 
   h_plot <- diurnal_hour |>
     ggplot2::ggplot(ggplot2::aes(hour, pm25, color = site)) +
-      ggplot2::geom_line(linewidth = 1, lineend = "round", show.legend = FALSE) +
+      ggplot2::geom_line(linewidth = 1, lineend = "round") +
       ggplot2::scale_x_continuous(expand = c(0, 0), breaks = seq(0, 23, 6)) +
       ggplot2::scale_y_continuous(
         expand = c(0, 0),
@@ -466,7 +463,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
 
   m_plot <- diurnal_month |>
     ggplot2::ggplot(ggplot2::aes(month, pm25, color = site)) +
-      ggplot2::geom_line(linewidth = 1, lineend = "round", show.legend = FALSE) +
+      ggplot2::geom_line(linewidth = 1, lineend = "round") +
       ggplot2::scale_x_datetime(
         expand = c(0, 0),
         labels = scales::date_format("%b")
@@ -485,7 +482,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
 
   wd_plot <- diurnal_wd |>
     ggplot2::ggplot(ggplot2::aes(day, pm25, color = site)) +
-      ggplot2::geom_line(linewidth = 1, lineend = "round", show.legend = FALSE) +
+      ggplot2::geom_line(linewidth = 1, lineend = "round") +
       ggplot2::scale_x_continuous(
         expand = c(0, 0),
         labels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
@@ -513,14 +510,11 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
       guides = "collect"
     ) +
     patchwork::plot_annotation(
-      title = paste0(site, " ", stringr::str_to_title(statistic), " PM2.5 Concentrations ", start, " to ", end),
+      title = paste0(site[1], " vs. ", site[2], " ", stringr::str_to_title(statistic), " PM2.5 Concentrations ", start, " to ", end),
       theme = ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
     ) &
     ggplot2::theme(
-      legend.position = 'bottom',
-      panel.background = ggplot2::element_rect(fill = "#ffffff"),
-      plot.background = ggplot2::element_rect(fill = "#ffffff"),
-      legend.background = ggplot2::element_rect(fill = "#ffffff"),
+      legend.position = 'bottom'
     )
 
   return(diurnal_patched)
