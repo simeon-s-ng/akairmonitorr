@@ -506,7 +506,9 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
       plotly::ggplotly(h_plot),
       plotly::ggplotly(wd_plot),
       plotly::ggplotly(m_plot)
-    )
+    ),
+    shareY = TRUE,
+    titleX = FALSE
   )
 
   diurnal_patched <- plotly::subplot(list(diurnal_top, diurnal_bottom), nrows = 2, shareY = TRUE, titleX = FALSE) |>
