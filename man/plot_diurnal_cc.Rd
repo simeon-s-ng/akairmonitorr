@@ -16,6 +16,8 @@ plot_diurnal_cc(data, site, start, end, statistic, title)
 \item{end}{End date}
 
 \item{statistic}{Median or Mean}
+
+\item{title}{Plot title}
 }
 \value{
 Diurnal ggplot

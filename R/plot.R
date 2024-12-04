@@ -369,6 +369,7 @@ plot_diurnal <- function(data, pollutant, sites, title, statistic) {
 #' @param start Start date
 #' @param end End date
 #' @param statistic Median or Mean
+#' @param title Plot title
 #'
 #' @return Diurnal ggplot
 #' @export
@@ -499,23 +500,35 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
         panel.spacing = ggplot2::unit(0, "lines")
       )
 
-  diurnal_patched <- hw_plot /
-    (h_plot + wd_plot + m_plot +
-      patchwork::plot_layout(
-        axis_titles = "collect_y",
-        guides = "collect"
-      )
-    ) +
-    patchwork::plot_layout(
-      guides = "collect"
-    ) +
-    patchwork::plot_annotation(
+  diurnal_top <- plotly::ggplotly(hw_plot)
+  diurnal_bottom <- plotly::subplot(
+    plotly::ggplotly(h_plot),
+    plotly::ggplotly(wd_plot),
+    plotly::ggplotly(m_plot)
+  )
+
+  diurnal_patched <- plotly::subplot(diurnal_top, diurnal_bottom, nrows = 2, shareY = TRUE) |>
+    layout(
       title = title,
-      theme = ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
-    ) &
-    ggplot2::theme(
-      legend.position = 'bottom'
     )
+
+  # diurnal_patched <- hw_plot /
+  #   (h_plot + wd_plot + m_plot +
+  #     patchwork::plot_layout(
+  #       axis_titles = "collect_y",
+  #       guides = "collect"
+  #     )
+  #   ) +
+  #   patchwork::plot_layout(
+  #     guides = "collect"
+  #   ) +
+  #   patchwork::plot_annotation(
+  #     title = title,
+  #     theme = ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
+  #   ) &
+  #   ggplot2::theme(
+  #     legend.position = 'bottom'
+  #   )
 
   return(diurnal_patched)
 }
