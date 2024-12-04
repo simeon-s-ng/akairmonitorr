@@ -506,6 +506,10 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
     ) +
     patchwork::plot_layout(
       guides = "collect"
+    ) +
+    patchwork::plot_annotation(
+      title = paste0(site, " ", statistic, " PM2.5 concentrations ", start, " to ", end),
+      theme = ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
     ) &
     ggplot2::theme(
       legend.position = 'bottom',
