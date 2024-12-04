@@ -11,7 +11,7 @@ dec_plot_theme <- function() {
     panel.border = ggplot2::element_rect(fill = NA, color = "#3f78a7", linewidth = 1, linetype = 1),
     # background color
     # panel.background = ggplot2::element_rect(fill = "#f7f5f2"),
-    # plot.background = ggplot2::element_rect(fill = "#f7f5f2"),
+    plot.background = ggplot2::element_rect(fill = "#ffffff"),
     # legend.background = ggplot2::element_rect(fill = "#f7f5f2"),
     # grid
     panel.grid.major.x = ggplot2::element_line(color = "#a1b9ed", linewidth = 0.5, linetype = 1),
