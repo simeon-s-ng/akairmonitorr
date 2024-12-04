@@ -502,12 +502,14 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
 
   diurnal_top <- plotly::subplot(plotly::ggplotly(hw_plot))
   diurnal_bottom <- plotly::subplot(
-    plotly::ggplotly(h_plot),
-    plotly::ggplotly(wd_plot),
-    plotly::ggplotly(m_plot)
+    list(
+      plotly::ggplotly(h_plot),
+      plotly::ggplotly(wd_plot),
+      plotly::ggplotly(m_plot)
+    )
   )
 
-  diurnal_patched <- plotly::subplot(diurnal_top, diurnal_bottom, nrows = 2, shareY = TRUE) |>
+  diurnal_patched <- plotly::subplot(list(diurnal_top, diurnal_bottom), nrows = 2, shareY = TRUE) |>
     plotly::layout(
       title = title,
     )
