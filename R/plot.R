@@ -500,7 +500,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
         panel.spacing = ggplot2::unit(0, "lines")
       )
 
-  diurnal_top <- plotly::ggplotly(hw_plot)
+  diurnal_top <- plotly::subplot(plotly::ggplotly(hw_plot))
   diurnal_bottom <- plotly::subplot(
     plotly::ggplotly(h_plot),
     plotly::ggplotly(wd_plot),
