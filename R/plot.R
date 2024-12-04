@@ -507,7 +507,11 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
     patchwork::plot_layout(
       guides = "collect"
     ) &
-    ggplot2::theme(legend.position = 'bottom', plot.background = ggplot2::element_rect(fill = "#f7f5f2"))
+    ggplot2::theme(
+      legend.position = 'bottom',
+      plot.background = ggplot2::element_rect(fill = "#f7f5f2"),
+      legend.position = 'none'
+    )
 
   return(diurnal_patched)
 }
