@@ -428,14 +428,13 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
 
   hw_plot <- diurnal_hour_week |>
     ggplot2::ggplot(ggplot2::aes(hour, pm25, color = site)) +
-      ggplot2::geom_line(linewidth = 1, lineend = "round") +
+      ggplot2::geom_line(linewidth = 1, lineend = "round", show.legend = FALSE) +
       ggplot2::scale_x_continuous(expand = c(0, 0), breaks = seq(0, 23, 6)) +
       ggplot2::scale_y_continuous(
         expand = c(0, 0),
         "PM2.5 (\u03bcg/m\u00b3)",
         limits = c(0, 35)
       ) +
-      ggplot2::guides(fill = "none") +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::facet_wrap(ggplot2::vars(day_name), nrow = 1) +
@@ -446,14 +445,13 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
 
   h_plot <- diurnal_hour |>
     ggplot2::ggplot(ggplot2::aes(hour, pm25, color = site)) +
-      ggplot2::geom_line(linewidth = 1, lineend = "round") +
+      ggplot2::geom_line(linewidth = 1, lineend = "round", show.legend = FALSE) +
       ggplot2::scale_x_continuous(expand = c(0, 0), breaks = seq(0, 23, 6)) +
       ggplot2::scale_y_continuous(
         expand = c(0, 0),
         "PM2.5 (\u03bcg/m\u00b3)",
         limits = c(0, 35)
       ) +
-      ggplot2::guides(fill = "none") +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::theme(
@@ -463,7 +461,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
 
   m_plot <- diurnal_month |>
     ggplot2::ggplot(ggplot2::aes(month, pm25, color = site)) +
-      ggplot2::geom_line(linewidth = 1, lineend = "round") +
+      ggplot2::geom_line(linewidth = 1, lineend = "round", show.legend = FALSE) +
       ggplot2::scale_x_datetime(
         expand = c(0, 0),
         labels = scales::date_format("%b")
@@ -473,7 +471,6 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
         "PM2.5 (\u03bcg/m\u00b3)",
         limits = c(0, 35)
       ) +
-      ggplot2::guides(fill = "none") +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::theme(
@@ -483,7 +480,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
 
   wd_plot <- diurnal_wd |>
     ggplot2::ggplot(ggplot2::aes(day, pm25, color = site)) +
-      ggplot2::geom_line(linewidth = 1, lineend = "round") +
+      ggplot2::geom_line(linewidth = 1, lineend = "round", show.legend = FALSE) +
       ggplot2::scale_x_continuous(
         expand = c(0, 0),
         labels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
@@ -493,7 +490,6 @@ plot_diurnal_cc <- function(data, site, start, end, statistic) {
         "PM2.5 (\u03bcg/m\u00b3)",
         limits = c(0, 35)
       ) +
-      ggplot2::guides(fill = "none") +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::theme(
