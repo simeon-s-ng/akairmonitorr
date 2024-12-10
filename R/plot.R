@@ -438,12 +438,12 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
         "PM2.5 (\u03bcg/m\u00b3)",
         limits = c(0, 40)
       ) +
-      ggplot2::geom_hline(aes(yintercept = 35, linetype = "24-hr NAAQS"), color = "blue") +
-      ggplot2::geom_hline(aes(yintercept = 9, linetype = "Annual NAAQS"), color = "red") +
-      ggplot2::scale_linetype_manual(
-        name = "NAAQS limit", values = c(2, 2),
-        guide = guide_legend(override.aes = list( color = c("blue", "red")))
-      ) +
+      # ggplot2::geom_hline(aes(yintercept = 35, linetype = "24-hr NAAQS"), color = "blue") +
+      # ggplot2::geom_hline(aes(yintercept = 9, linetype = "Annual NAAQS"), color = "red") +
+      # ggplot2::scale_linetype_manual(
+      #   name = "NAAQS limit", values = c(2, 2),
+      #   guide = guide_legend(override.aes = list( color = c("blue", "red")))
+      # ) +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::facet_wrap(ggplot2::vars(day_name), nrow = 1) +
@@ -461,12 +461,12 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
         "PM2.5 (\u03bcg/m\u00b3)",
         limits = c(0, 40)
       ) +
-      ggplot2::geom_hline(aes(yintercept = 35, linetype = "24-hr NAAQS"), color = "blue") +
-      ggplot2::geom_hline(aes(yintercept = 9, linetype = "Annual NAAQS"), color = "red") +
-      ggplot2::scale_linetype_manual(
-        name = "NAAQS limit", values = c(2, 2),
-        guide = guide_legend(override.aes = list( color = c("blue", "red")))
-      ) +
+      # ggplot2::geom_hline(aes(yintercept = 35, linetype = "24-hr NAAQS"), color = "blue") +
+      # ggplot2::geom_hline(aes(yintercept = 9, linetype = "Annual NAAQS"), color = "red") +
+      # ggplot2::scale_linetype_manual(
+      #   name = "NAAQS limit", values = c(2, 2),
+      #   guide = guide_legend(override.aes = list( color = c("blue", "red")))
+      # ) +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::theme(
@@ -486,12 +486,12 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
         "PM2.5 (\u03bcg/m\u00b3)",
         limits = c(0, 40)
       ) +
-      ggplot2::geom_hline(aes(yintercept = 35, linetype = "24-hr NAAQS"), color = "blue") +
-      ggplot2::geom_hline(aes(yintercept = 9, linetype = "Annual NAAQS"), color = "red") +
-      ggplot2::scale_linetype_manual(
-        name = "NAAQS limit", values = c(2, 2),
-        guide = guide_legend(override.aes = list( color = c("blue", "red")))
-      ) +
+      # ggplot2::geom_hline(aes(yintercept = 35, linetype = "24-hr NAAQS"), color = "blue") +
+      # ggplot2::geom_hline(aes(yintercept = 9, linetype = "Annual NAAQS"), color = "red") +
+      # ggplot2::scale_linetype_manual(
+      #   name = "NAAQS limit", values = c(2, 2),
+      #   guide = guide_legend(override.aes = list( color = c("blue", "red")))
+      # ) +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::theme(
@@ -511,12 +511,12 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
         "PM2.5 (\u03bcg/m\u00b3)",
         limits = c(0, 40)
       ) +
-      ggplot2::geom_hline(aes(yintercept = 35, linetype = "24-hr NAAQS"), color = "blue") +
-      ggplot2::geom_hline(aes(yintercept = 9, linetype = "Annual NAAQS"), color = "red") +
-      ggplot2::scale_linetype_manual(
-        name = "NAAQS limit", values = c(2, 2),
-        guide = guide_legend(override.aes = list( color = c("blue", "red")))
-      ) +
+      # ggplot2::geom_hline(aes(yintercept = 35, linetype = "24-hr NAAQS"), color = "blue") +
+      # ggplot2::geom_hline(aes(yintercept = 9, linetype = "Annual NAAQS"), color = "red") +
+      # ggplot2::scale_linetype_manual(
+      #   name = "NAAQS limit", values = c(2, 2),
+      #   guide = guide_legend(override.aes = list( color = c("blue", "red")))
+      # ) +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::theme(
