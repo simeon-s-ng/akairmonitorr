@@ -27,9 +27,14 @@ comes across.
 
 You can install the development version of akairmonitor from [GitHub](https://github.com/simeon-s-ng/akairmonitorr) with:
 
-``` r
+```{r}
 # install.packages("pak")
 pak::pak("simeon-s-ng/akairmonitorr")
+
+# OR
+
+# install.packages("devtools")
+devtools::install_github("simeon-s-ng/akairmonitorr")
 ```
 
 ## Example
