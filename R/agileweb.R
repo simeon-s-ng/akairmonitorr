@@ -62,7 +62,7 @@ query_agileweb <- function(sites, parameters, interval = NULL, start, end = NULL
     new_start_date <- agileweb_dt(max(data$Date))
     test_length <- end_date_query - end_date_data
     # Stop querying if data within 2 hours of query end.
-    if(time_length(test_length, unit = "hour") < 3) {
+    if(lubridate::time_length(test_length, unit = "hour") < 3) {
       break
     }
   }
