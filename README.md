@@ -38,6 +38,9 @@ quant_460 <- query_agileweb("Quant_MOD00460", "PM25", start = "2024-05-13T00:00:
   clean_pm25()
 ```
 
+NOTE: To obtain an AirVision API key, you may request a key by reaching
+out to the AMQA Data Management Team at <amqa-data-request@alaska.gov>
+
 Or read a .csv basic data export from AirVision:
 
 ``` r
