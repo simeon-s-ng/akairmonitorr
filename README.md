@@ -30,8 +30,9 @@ devtools::install_github("simeon-s-ng/akairmonitorr")
 library(akairmonitorr)
 ```
 
-You can query our internal AirVision server for data with: (I recommend
-storing & using your API key in R with the
+You can query our internal AirVision server for data with:
+
+(I recommend storing & using your API key in R with the
 [Keyring](https://keyring.r-lib.org/) package)
 
 ``` r
