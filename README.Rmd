@@ -30,12 +30,15 @@ You can install the development version of akairmonitor from [GitHub](https://gi
 ```{r eval=FALSE}
 # install.packages("pak")
 pak::pak("simeon-s-ng/akairmonitorr")
+```
 
-# OR
+OR
 
+```{r eval=FALSE}
 # install.packages("devtools")
 devtools::install_github("simeon-s-ng/akairmonitorr")
 ```
+
 
 ## Example
 

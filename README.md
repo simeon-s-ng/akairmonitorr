@@ -17,9 +17,11 @@ You can install the development version of akairmonitor from
 ``` r
 # install.packages("pak")
 pak::pak("simeon-s-ng/akairmonitorr")
+```
 
-# OR
+OR
 
+``` r
 # install.packages("devtools")
 devtools::install_github("simeon-s-ng/akairmonitorr")
 ```
