@@ -30,11 +30,13 @@ devtools::install_github("simeon-s-ng/akairmonitorr")
 library(akairmonitorr)
 ```
 
-You can query our internal AirVision server for data with:
+You can query our internal AirVision server for data with: (I recommend
+storing & using your API key in R with the
+[Keyring](https://keyring.r-lib.org/) package)
 
 ``` r
 key <- API_KEY
-quant_460 <- query_agileweb("Quant_MOD00460", "PM25", start = "2024-05-13T00:00:00", key) |>
+quant_460 <- query_agileweb("Quant_MOD00460", "PM25", start = "2024-05-13T00:00:00", api_key = key) |>
   clean_pm25()
 ```
 
