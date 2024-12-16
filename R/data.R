@@ -13,3 +13,11 @@
 #' @author Simeon \email{simeon.ng@alaska.gov}
 #' @keywords data
 "agilaire_flags"
+
+#' quant_460 agilaire query quant dataset
+#'
+#' @name quant_460
+#' @docType data
+#' @author Simeon \email{simeon.ng@alaska.gov}
+#' @keywords data
+"quant_460"

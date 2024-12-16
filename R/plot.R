@@ -272,7 +272,7 @@ plot_diurnal <- function(data, pollutant, sites, title, statistic) {
       ) +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
-      ggplot2::facet_wrap(vars(day_name), nrow = 1) +
+      ggplot2::facet_wrap(ggplot2::vars(day_name), nrow = 1) +
       ggplot2::theme(
         plot.margin = ggplot2::margin(0, 0, 0, 0, 'pt'),
         panel.spacing = ggplot2::unit(0, "lines")

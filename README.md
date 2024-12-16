@@ -11,7 +11,7 @@ common data cleaning & wrangling steps the team comes across.
 
 ## Installation
 
-You can install the development version of akairmonitor from
+You can install the development version of akairmonitorr from
 [GitHub](https://github.com/simeon-s-ng/akairmonitorr) with:
 
 ``` r
@@ -75,6 +75,15 @@ head(haines_quant)
 #> 6 2024-01-31 05:00:00    -0.4  -13.4      0   2.37    8.62      41.8          63
 #> # ℹ 2 more variables: pm25 <dbl>, relhum <dbl>
 ```
+
+Create diurnal plots of a sensor or sensor dataset with
+
+``` r
+library(patchwork)
+plot_diurnal(quant_460, "pm25", c("Quant_MOD00460"), "Your title here", "median")
+```
+
+<img src="man/figures/README-plot diurnal pm25-1.png" width="100%" />
 
 You can create an OpenAir diurnal plot with your imported data (must
 follow openair package column naming conventions):

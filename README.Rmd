@@ -25,7 +25,7 @@ comes across.
 
 ## Installation
 
-You can install the development version of akairmonitor from [GitHub](https://github.com/simeon-s-ng/akairmonitorr) with:
+You can install the development version of akairmonitorr from [GitHub](https://github.com/simeon-s-ng/akairmonitorr) with:
 
 ```{r eval=FALSE}
 # install.packages("pak")
@@ -66,6 +66,13 @@ haines_quant <- read_aa(file_path)
 
 head(haines_quant)
 ```
+
+Create diurnal plots of a sensor or sensor dataset with
+```{r plot diurnal pm25, fig.width=10, fig.height=10}
+library(patchwork)
+plot_diurnal(quant_460, "pm25", c("Quant_MOD00460"), "Your title here", "median")
+```
+
 
 You can create an OpenAir diurnal plot with your imported data (must follow openair package column naming conventions):
 
