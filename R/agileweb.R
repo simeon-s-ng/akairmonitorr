@@ -15,7 +15,7 @@
 #'
 #' @return A tibble with selected columns.
 #' @export
-query_agileweb <- function(sites, parameters, interval = NULL, start, end = NULL, api_key) {
+query_agileweb <- function(sites, parameters = NULL, interval = NULL, start, end = NULL, api_key) {
   # Default 1 hour interval
   if(is.null(interval)) {
     interval <- "001h"

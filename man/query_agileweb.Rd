@@ -4,7 +4,14 @@
 \alias{query_agileweb}
 \title{Query AMQA internal agileweb server for site/parameter data.}
 \usage{
-query_agileweb(sites, parameters, interval = NULL, start, end = NULL, api_key)
+query_agileweb(
+  sites,
+  parameters = NULL,
+  interval = NULL,
+  start,
+  end = NULL,
+  api_key
+)
 }
 \arguments{
 \item{sites}{Site name string. Optionally a comma-separated list of site names (Site names are identical as listed in AirVision > Configuration Editors > Site/Parameter).}
