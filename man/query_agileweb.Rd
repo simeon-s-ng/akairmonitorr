@@ -5,7 +5,7 @@
 \title{Query AMQA internal agileweb server for site/parameter data.}
 \usage{
 query_agileweb(
-  sites,
+  sites = NULL,
   parameters = NULL,
   interval = NULL,
   start,
