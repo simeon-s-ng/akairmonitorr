@@ -80,7 +80,7 @@ query_agileweb <- function(sites = NULL, parameters = NULL, interval = NULL, sta
 #' end <- agileweb_dt(lubridate::now())
 agileweb_dt <- function(datetime) {
   # If hour is 0
-  if(hour(datetime) == 0) {
+  if(lubridate::hour(datetime) == 0) {
     return(paste0(as.character(datetime), "T00:00:00"))
   }
   # Else glue and return full string
