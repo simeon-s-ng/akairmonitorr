@@ -8,7 +8,7 @@
 dec_plot_theme <- function() {
   ggplot2::theme(
     # border
-    panel.border = ggplot2::element_rect(fill = NA, color = "#3f78a7", linewidth = 1, linetype = 1),
+    panel.border = ggplot2::element_rect(fill = NA, color = "#000000", linewidth = 1, linetype = 1),
     # background color
     panel.background = ggplot2::element_rect(fill = "#ffffff"),
     # plot.background = ggplot2::element_rect(fill = "#ffffff"),
@@ -19,7 +19,7 @@ dec_plot_theme <- function() {
     panel.grid.major.y = ggplot2::element_line(color = "#a1b9ed", linewidth = 0.5, linetype = 1),
     panel.grid.minor.y = ggplot2::element_blank(),
     # axis
-    axis.ticks = ggplot2::element_line(color = "#3f78a7"),
+    axis.ticks = ggplot2::element_line(color = "#000000"),
     # title
     title = ggplot2::element_text(size = 8)
   )
