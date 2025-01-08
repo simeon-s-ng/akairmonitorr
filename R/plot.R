@@ -14,9 +14,9 @@ dec_plot_theme <- function() {
     # plot.background = ggplot2::element_rect(fill = "#ffffff"),
     # legend.background = ggplot2::element_rect(fill = "#f7f5f2"),
     # grid
-    panel.grid.major.x = ggplot2::element_line(color = "#a1b9ed", linewidth = 0.5, linetype = 1),
+    panel.grid.major.x = ggplot2::element_line(color = "#aaaaaa", linewidth = 0.5, linetype = 1),
     panel.grid.minor.x = ggplot2::element_blank(),
-    panel.grid.major.y = ggplot2::element_line(color = "#a1b9ed", linewidth = 0.5, linetype = 1),
+    panel.grid.major.y = ggplot2::element_line(color = "#aaaaaa", linewidth = 0.5, linetype = 1),
     panel.grid.minor.y = ggplot2::element_blank(),
     # axis
     axis.ticks = ggplot2::element_line(color = "#000000"),
