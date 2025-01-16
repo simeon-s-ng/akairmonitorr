@@ -25,6 +25,26 @@ dec_plot_theme <- function() {
   )
 }
 
+#' Caption for lm plot
+#'
+#' @param slope slope value
+#' @param int y-intercept value
+#' @param r2 r-squared value
+#'
+#' @return linear equation caption string
+#' @export
+lm_caption <- function(slope, int, r2) {
+  paste0(
+      "y = ",
+      round(slope, digits = 3),
+      "x + ",
+      round(int, digits = 3),
+      "\n",
+      "r\u00b2 = ",
+      round(r2, digits = 3)
+    )
+}
+
 # ---- GENERIC PLOTS ===========================================================
 
 #' Linear Model Plot for any Pollutant & Monitor(s)
