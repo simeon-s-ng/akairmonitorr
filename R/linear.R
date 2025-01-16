@@ -9,9 +9,10 @@
 #'
 #' @examples
 linear_regression <- function(data, x, y) {
+  formula <- as.formula(paste0(y, '~', x))
   mod <- parsnip::linear_reg()
   fit <- mod |>
-    parsnip::fit(.data[[y]] ~ .data[[x]], data = data)
+    parsnip::fit(formula, data = data)
 
   fit_tidy <- parsnip::tidy(fit)
   fit_glance <- parsnip::glance(fit)
