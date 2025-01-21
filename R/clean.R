@@ -33,7 +33,7 @@ clean_garden_quant <- function(data, pod) {
     dplyr::mutate_at(c(2:length(data)), as.numeric) |>
     # DEWPOINT FOMULA: https://bmcnoldy.earth.miami.edu/Humidity.html
     dplyr::mutate(
-      DEWPT = (243.04 * log(RELHUM / 100) + ((17.625 * AMBTEMP))) / (((243.04 + AMBTEMP)) / (17.625 - log(RELHUM / 100) - ((17.625 * AMBTEMP) / (243.04 + AMBTEMP))))
+      DEWPT = 243.04 * (log(RELHUM / 100) + ((17.625 * AMBTEMP) / (243.04 + AMBTEMP))) / (17.625 - log(RELHUM /100) - ((17.625 * AMBTEMP) / (243.04 + AMBTEMP)))
     )
 
   return(data)
@@ -56,7 +56,7 @@ clean_ncore_quant <- function(data, pod) {
     dplyr::mutate_at(c(2:length(data)), as.numeric) |>
     # DEWPOINT FOMULA: https://bmcnoldy.earth.miami.edu/Humidity.html
     dplyr::mutate(
-      DEWPT = (243.04 * log(RELHUM / 100) + ((17.625 * AMBTEMP))) / (((243.04 + AMBTEMP)) / (17.625 - log(RELHUM / 100) - ((17.625 * AMBTEMP) / (243.04 + AMBTEMP))))
+      DEWPT = 243.04 * (log(RELHUM / 100) + ((17.625 * AMBTEMP) / (243.04 + AMBTEMP))) / (17.625 - log(RELHUM /100) - ((17.625 * AMBTEMP) / (243.04 + AMBTEMP)))
     )
 
   return(data)

@@ -6,8 +6,6 @@
 #'
 #' @return Vector of lm coefficients
 #' @export
-#'
-#' @examples
 linear_regression <- function(data, x, y) {
   formula <- as.formula(paste0(y, '~', x))
   mod <- parsnip::linear_reg()
