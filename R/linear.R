@@ -34,7 +34,7 @@ linear_regression <- function(data, x, y) {
 #' @export
 avg_pct_diff <- function(data, col1, col2) {
   data <- data |>
-    mutate(abs_diff = (abs(.data[[col1]]) - .data[[col2]]) / (0.5 * (.data[[col1]] + .data[[col2]])) * 100) |>
-    summarize(mean(abs_diff))
+    dplyr::mutate(abs_diff = (abs(.data[[col1]]) - .data[[col2]]) / (0.5 * (.data[[col1]] + .data[[col2]])) * 100) |>
+    dplyr::summarize(mean(abs_diff))
   return(data)
 }
