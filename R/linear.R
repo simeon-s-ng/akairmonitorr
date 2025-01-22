@@ -22,3 +22,19 @@ linear_regression <- function(data, x, y) {
 
   return(c(fit_slope, fit_int, fit_r2, fit_rmse))
 }
+
+
+#' Calculate average percent difference between two sensors
+#'
+#' @param data Dataset with wide pivoted sensor/pollutant columns
+#' @param col1 Name of column of sample measurements of sensor 1
+#' @param col2 Name of column of sample measurements of sensor 2
+#'
+#' @return Average percent difference of two sensors
+#' @export
+avg_pct_diff <- function(data, col1, col2) {
+  data <- data |>
+    mutate(abs_diff = (abs(.data[[col1]]) - .data[[col2]]) / (0.5 * (.data[[col1]] + .data[[col2]])) * 100) |>
+    summarize(mean(abs_diff))
+  return(data)
+}
