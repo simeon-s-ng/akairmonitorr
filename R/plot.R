@@ -128,7 +128,7 @@ plot_rq <- function(data, title, xlab, ylab, caption) {
       alpha = 0.33,
       show.legend = TRUE
     ) +
-    ggplot2::geom_quantile(quantile = 0.5) +
+    ggplot2::geom_quantile(quantiles = 0.5) +
     ggthemes::scale_color_gdocs() +
     ggplot2::ggtitle(title) +
     ggplot2::labs(x = xlab, y = ylab, caption = caption) +
