@@ -112,6 +112,30 @@ plot_lm_quant <- function(data, title, ind, dep, pollutant) {
     ggplot2::theme(plot.caption = ggplot2::element_text(size = 8))
 }
 
+#' Median Regression Plot for any Pollutant & Monitor(s)
+#'
+#' @param data Pollutant Dataset. Must be in 'Date | Quant | BAM' form.
+#' @param title Title of the plot.
+#' @param xlab X axis label.
+#' @param ylab Y axis label.
+#' @param caption Equation caption.
+#'
+#' @return A Median Regression ggplot
+#' @export
+plot_rq <- function(data, title, xlab, ylab, caption) {
+  ggplot2::ggplot(data, ggplot2::aes(x = BAM, y = Quant)) +
+    ggplot2::geom_point(
+      alpha = 0.33,
+      show.legend = TRUE
+    ) +
+    ggplot2::geom_quantile(quantile = 0.5) +
+    ggthemes::scale_color_gdocs() +
+    ggplot2::ggtitle(title) +
+    ggplot2::labs(x = xlab, y = ylab, caption = caption) +
+    akairmonitorr::dec_plot_theme() +
+    ggplot2::theme(plot.caption = ggplot2::element_text(size = 8))
+}
+
 # ---- PM2.5 PLOTS =============================================================
 
 #' Quant PM25 Temporal Plot
