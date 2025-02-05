@@ -3,6 +3,7 @@
 export("%>%")
 export(agileweb_dt)
 export(avg_pct_diff)
+export(check_completeness)
 export(clean_co_qt_bam)
 export(clean_garden_quant)
 export(clean_ncore_quant)
