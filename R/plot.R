@@ -41,7 +41,8 @@ plot_lm <- function(data, title, xlab, ylab, caption) {
   ggplot2::ggplot(data, ggplot2::aes(x = BAM, y = Quant)) +
     ggplot2::geom_point(
       alpha = 0.33,
-      show.legend = TRUE
+      show.legend = TRUE,
+      color = RELHUM
     ) +
     ggplot2::geom_smooth(method = lm, se = FALSE) +
     ggplot2::geom_abline(slope = 1, intercept = 0) +
