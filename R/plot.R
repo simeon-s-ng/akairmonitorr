@@ -40,9 +40,9 @@ dec_plot_theme <- function() {
 plot_lm <- function(data, title, xlab, ylab, caption) {
   ggplot2::ggplot(data, ggplot2::aes(x = BAM, y = Quant)) +
     ggplot2::geom_point(
+      aes(color = RELHUM),
       alpha = 0.33,
-      show.legend = TRUE,
-      color = RELHUM
+      show.legend = TRUE
     ) +
     ggplot2::geom_smooth(method = lm, se = FALSE) +
     ggplot2::geom_abline(slope = 1, intercept = 0) +
