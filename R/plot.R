@@ -38,7 +38,7 @@ dec_plot_theme <- function() {
 #' @return A Linear Model ggplot
 #' @export
 plot_lm <- function(data, x, y, title, xlab, ylab, caption) {
-  ggplot2::ggplot(data, ggplot2::aes(x = .data[[x]], y = .data[[y]])) +
+  ggplot2::ggplot(data, ggplot2::aes(x = Quant, y = BAM)) +
     ggplot2::geom_point(
       alpha = 0.33,
       show.legend = TRUE
