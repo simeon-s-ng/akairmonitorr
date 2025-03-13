@@ -43,7 +43,7 @@ plot_lm <- function(data, x, y, title, xlab, ylab, caption) {
       alpha = 0.33,
       show.legend = TRUE
     ) +
-    ggplot2::geom_smooth(method = lm, se = FALSE, formula = y ~ x) +
+    ggplot2::geom_smooth(method = lm, se = FALSE) +
     ggplot2::geom_abline(slope = 1, intercept = 0) +
     ggthemes::scale_color_gdocs() +
     ggplot2::ggtitle(title) +
