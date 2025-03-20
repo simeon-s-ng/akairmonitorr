@@ -50,7 +50,7 @@ plot_lm <- function(data, x, y, title, xlab, ylab, caption) {
     ggplot2::labs(x = xlab, y = ylab, caption = caption) +
     akairmonitorr::dec_plot_theme() +
     ggplot2::theme(
-      title = ggplot2::element_text(size = 10)
+      title = ggplot2::element_text(size = 10),
       plot.caption = ggplot2::element_text(size = 10)
     )
 }
