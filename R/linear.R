@@ -6,21 +6,41 @@
 #'
 #' @return Vector of lm coefficients
 #' @export
-linear_regression <- function(data, x, y) {
+linear_regression <- function(
+    data,
+    x,
+    y,
+    title = NULL,
+    xlab = NULL,
+    ylab = NULL
+  ) {
   formula <- as.formula(paste0(y, '~', x))
-  mod <- parsnip::linear_reg()
-  fit <- mod |>
-    parsnip::fit(formula, data = data)
+  mod <- lm(formula, data)
+  table <- moderndive::get_regression_table(mod)
+  sum <- moderndive::get_regression_summaries(mod)
 
-  fit_tidy <- parsnip::tidy(fit)
-  fit_glance <- parsnip::glance(fit)
+  caption <- paste0(
+      "y = ",
+      round(table[[2]][2], digits = 3),
+      "x + ",
+      round(table[[2]][1], digits = 3),
+      "\n",
+      "r\u00b2 = ",
+      round(sum[[1]], digits = 3),
+      "\n",
+      "rmse = ",
+      round(sum[[4]], digits = 3)
+    )
 
-  fit_int   <- fit_tidy$estimate[1]
-  fit_slope <- fit_tidy$estimate[2]
-  fit_r2    <- fit_glance$r.squared
-  fit_rmse  <- yardstick::rmse(data, .data[[x]], .data[[y]])
+  plot <- akairmonitorr::plot_lm(
+    data,
+    title,
+    xlab,
+    ylab,
+    caption
+  )
 
-  return(c(fit_slope, fit_int, fit_r2, fit_rmse))
+  return(c(mod, table, sum, plot))
 }
 
 
