@@ -40,7 +40,7 @@ linear_regression <- function(
     caption
   )
 
-  plot
+  print(plot)
 
   return(mod)
 }
