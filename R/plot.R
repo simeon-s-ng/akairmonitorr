@@ -37,8 +37,8 @@ dec_plot_theme <- function() {
 #'
 #' @return A Linear Model ggplot
 #' @export
-plot_lm <- function(data, title, xlab, ylab, caption) {
-  ggplot2::ggplot(data, ggplot2::aes(x = Quant, y = BAM)) +
+plot_lm <- function(data, x, y, title, xlab, ylab, caption) {
+  ggplot2::ggplot(data, ggplot2::aes(x = .data[[x]], y = .data[[y]])) +
     ggplot2::geom_point(
       alpha = 0.33,
       show.legend = TRUE
@@ -49,7 +49,10 @@ plot_lm <- function(data, title, xlab, ylab, caption) {
     ggplot2::ggtitle(title) +
     ggplot2::labs(x = xlab, y = ylab, caption = caption) +
     akairmonitorr::dec_plot_theme() +
-    ggplot2::theme(plot.caption = ggplot2::element_text(size = 8))
+    ggplot2::theme(
+      title = ggplot2::element_text(size = 10)
+      plot.caption = ggplot2::element_text(size = 10)
+    )
 }
 
 #' Linear Model Plot for any Pollutant & Monitor(s)

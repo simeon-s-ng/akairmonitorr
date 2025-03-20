@@ -34,6 +34,8 @@ linear_regression <- function(
 
   plot <- akairmonitorr::plot_lm(
     data,
+    x,
+    y,
     title,
     xlab,
     ylab,
