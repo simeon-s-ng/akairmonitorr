@@ -4,7 +4,7 @@
 \alias{linear_regression}
 \title{Linear Regression Analysis}
 \usage{
-linear_regression(data, x, y)
+linear_regression(data, x, y, title = NULL, xlab = NULL, ylab = NULL)
 }
 \arguments{
 \item{data}{Data to analyze}
@@ -12,6 +12,12 @@ linear_regression(data, x, y)
 \item{x}{String of column of independent variable}
 
 \item{y}{String of column of dependent variable}
+
+\item{title}{Title of plot}
+
+\item{xlab}{X-axis label of plot}
+
+\item{ylab}{Y-axis label of plot}
 }
 \value{
 Vector of lm coefficients

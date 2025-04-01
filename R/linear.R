@@ -3,6 +3,9 @@
 #' @param data Data to analyze
 #' @param x String of column of independent variable
 #' @param y String of column of dependent variable
+#' @param title Title of plot
+#' @param xlab X-axis label of plot
+#' @param ylab Y-axis label of plot
 #'
 #' @return Vector of lm coefficients
 #' @export

@@ -4,10 +4,14 @@
 \alias{plot_lm}
 \title{Linear Model Plot for any Pollutant & Monitor(s)}
 \usage{
-plot_lm(data, title, xlab, ylab, caption)
+plot_lm(data, x, y, title, xlab, ylab, caption)
 }
 \arguments{
 \item{data}{Pollutant Dataset. Must be in 'Date | Quant | BAM' form.}
+
+\item{x}{Independent variable}
+
+\item{y}{Dependent variable}
 
 \item{title}{Title of the plot.}
 

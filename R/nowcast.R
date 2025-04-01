@@ -5,9 +5,8 @@
 #' nowcast
 #'
 #' @param data PM Dataset
-#' @param pm_col PM Column Name
 #'
-#' @return
+#' @return NowCast AQI value
 #' @export
 nowcast <- function(data) {
 

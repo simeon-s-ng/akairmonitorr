@@ -30,6 +30,8 @@ dec_plot_theme <- function() {
 #' Linear Model Plot for any Pollutant & Monitor(s)
 #'
 #' @param data Pollutant Dataset. Must be in 'Date | Quant | BAM' form.
+#' @param x Independent variable
+#' @param y Dependent variable
 #' @param title Title of the plot.
 #' @param xlab X axis label.
 #' @param ylab Y axis label.
