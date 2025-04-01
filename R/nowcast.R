@@ -11,7 +11,7 @@
 nowcast <- function(data) {
   # 1. Select minimum and maximum PM measurements
   range <- max(data) - min(data)
-  roc <- range / 12
+  roc <- range / max(data)
   wf <- 1 - roc
 
   if(wf < 0.5) {
