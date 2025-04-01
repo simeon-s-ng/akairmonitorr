@@ -55,27 +55,27 @@ valid_nowcast <- function(data) {
 convert_aqi_pm25 <- function(value) {
   value <- trunc(value * 10) / 10
 
-  if(value >= 0 & value <= 9.0) {
+  if(value >= 0 && value <= 9.0) {
     bpl <- 0.0
     bph <- 9.0
     ilo <- 0
     ihi <- 50
-  } else if (value >= 9.1 & value <= 35.4) {
+  } else if (value >= 9.1 && value <= 35.4) {
     bpl <- 9.1
     bph <- 35.4
     ilo <- 51
     ihi <- 100
-  } else if (value >= 35.5 & value <= 55.4) {
+  } else if (value >= 35.5 && value <= 55.4) {
     bpl <- 35.5
     bph <- 55.4
     ilo <- 101
     ihi <- 150
-  } else if (value >= 55.5 & value <= 125.4) {
+  } else if (value >= 55.5 && value <= 125.4) {
     bpl <- 55.5
     bph <- 125.4
     ilo <- 151
     ihi <- 200
-  } else if (value >= 125.5 & value <= 225.4) {
+  } else if (value >= 125.5 && value <= 225.4) {
     bpl <- 125.5
     bph <- 225.4
     ilo <- 201
