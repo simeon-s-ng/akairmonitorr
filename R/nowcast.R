@@ -9,7 +9,9 @@
 #' @return NowCast AQI value
 #' @export
 nowcast <- function(data) {
-  # 1. Select minimum and maximum PM measurements
+  data <- tibble::as_tibble_col(data, column_name = "data") |>
+    filter(!is.na(data))
+
   range <- max(data) - min(data)
   roc <- range / max(data)
   wf <- 1 - roc
@@ -18,7 +20,7 @@ nowcast <- function(data) {
     wf <- 0.5
   }
 
-  data <- tibble::as_tibble_col(data, column_name = "data") |>
+  data <- data |>
     dplyr::mutate(hours_ago = 12 - dplyr::row_number()) |>
     dplyr::mutate(
       wf_mult = data * (wf ^ hours_ago),
