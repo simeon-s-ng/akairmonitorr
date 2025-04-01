@@ -9,9 +9,24 @@
 #' @return NowCast AQI value
 #' @export
 nowcast <- function(data) {
-
   # 1. Select minimum and maximum PM measurements
+  range <- max(data) - min(data)
+  roc <- range / 12
+  wf <- 1 - roc
 
+  if(wf < 0.5) {
+    wf <- 0.5
+  }
+
+  data <- tibble::as_tibble_col(data, column_name = "data") |>
+    dplyr::mutate(hours_ago = 12 - dplyr::row_number()) |>
+    dplyr::mutate(
+      wf_mult = data * (wf ^ hours_ago),
+      factor = wf ^ hours_ago
+    ) |>
+    dplyr::summarise(wf_sum = sum(wf_mult) / sum(factor))
+
+  return(data$wf_sum)
 }
 
 #' Valid NowCast hour if 2 out of the last 3 hours of data are valid.
