@@ -14,7 +14,7 @@ nowcast <- function(data) {
   roc <- range / max(data)
   wf <- 1 - roc
 
-  if(wf < 0.5) {
+  if(!is.na(wf) & wf < 0.5) {
     wf <- 0.5
   }
 
