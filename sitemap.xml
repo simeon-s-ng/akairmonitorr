@@ -20,6 +20,7 @@
 <url><loc>https://simeon-s-ng.github.io/akairmonitorr/reference/index.html</loc></url>
 <url><loc>https://simeon-s-ng.github.io/akairmonitorr/reference/linear_regression.html</loc></url>
 <url><loc>https://simeon-s-ng.github.io/akairmonitorr/reference/ncore_quants.html</loc></url>
+<url><loc>https://simeon-s-ng.github.io/akairmonitorr/reference/nowcast.html</loc></url>
 <url><loc>https://simeon-s-ng.github.io/akairmonitorr/reference/pipe.html</loc></url>
 <url><loc>https://simeon-s-ng.github.io/akairmonitorr/reference/plot_co_ts_monitor.html</loc></url>
 <url><loc>https://simeon-s-ng.github.io/akairmonitorr/reference/plot_diurnal.html</loc></url>
@@ -39,5 +40,6 @@
 <url><loc>https://simeon-s-ng.github.io/akairmonitorr/reference/read_aa.html</loc></url>
 <url><loc>https://simeon-s-ng.github.io/akairmonitorr/reference/read_quant_flagged.html</loc></url>
 <url><loc>https://simeon-s-ng.github.io/akairmonitorr/reference/read_regulatory_flagged.html</loc></url>
+<url><loc>https://simeon-s-ng.github.io/akairmonitorr/reference/valid_nowcast.html</loc></url>
 </urlset>
 
