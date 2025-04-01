@@ -53,6 +53,10 @@ valid_nowcast <- function(data) {
 #' @return An AQI value
 #' @export
 convert_aqi_pm25 <- function(value) {
+  if(is.na(value)) {
+    return(NA)
+  }
+
   value <- trunc(value * 10) / 10
 
   if(value >= 0 && value <= 9.0) {
