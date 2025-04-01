@@ -87,5 +87,5 @@ convert_aqi_pm25 <- function(value) {
     ihi <- 500
   }
 
-  return(((ihi - ilo) / (bph - bpl)) * (value - bpl) + ilo)
+  return(round(((ihi - ilo) / (bph - bpl)) * (value - bpl) + ilo))
 }
