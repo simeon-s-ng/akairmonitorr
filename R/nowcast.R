@@ -17,7 +17,10 @@ nowcast <- function(data) {
 
 #' Valid NowCast hour if 2 out of the last 3 hours of data are valid.
 #'
-#' @noRd
+#' @param data PM Dataset
+#'
+#' @return Boolean if hour is valid
+#' @export
 valid_nowcast <- function(data) {
   if(sum(is.na(data)) > length(data) / 3) {
     return(FALSE)
