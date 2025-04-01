@@ -53,9 +53,11 @@ valid_nowcast <- function(data) {
 #' @return An AQI value
 #' @export
 convert_aqi_pm25 <- function(value) {
-  if(is.na(value)) {
-    return(NA)
-  }
+  ifelse(
+    is.na(value),
+    return(NA),
+    next
+  )
 
   value <- trunc(value * 10) / 10
 
@@ -92,4 +94,5 @@ convert_aqi_pm25 <- function(value) {
   }
 
   return(round(((ihi - ilo) / (bph - bpl)) * (value - bpl) + ilo))
+
 }
