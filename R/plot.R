@@ -434,7 +434,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
 
     # Grouped by month
     diurnal_month <- plot_data |>
-      dplyr::group_by(site, month) |>
+      dplyr::group_by(site, year, month) |>
       dplyr::summarise(pm25 = mean(pm25)) |>
       # dplyr::mutate(month = lubridate::parse_date_time(month, "m"))
       dplyr::mutate(date = lubridate::parse_date_time(paste0(year, "-", month), "ym"))
@@ -457,7 +457,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
 
     # Grouped by month
     diurnal_month <- plot_data |>
-      dplyr::group_by(site, month) |>
+      dplyr::group_by(site, year, month) |>
       dplyr::summarise(pm25 = median(pm25)) |>
       # dplyr::mutate(month = lubridate::parse_date_time(month, "m"))
       dplyr::mutate(date = lubridate::parse_date_time(paste0(year, "-", month), "ym"))
