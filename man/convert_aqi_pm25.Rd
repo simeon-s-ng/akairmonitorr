@@ -2,7 +2,7 @@
 % Please edit documentation in R/nowcast.R
 \name{convert_aqi_pm25}
 \alias{convert_aqi_pm25}
-\title{Converts a value to an AQI value}
+\title{Converts a calculated PM2.5 value to a AQI value}
 \usage{
 convert_aqi_pm25(value)
 }
@@ -13,5 +13,5 @@ convert_aqi_pm25(value)
 An AQI value
 }
 \description{
-Converts a value to an AQI value
+Converts a calculated PM2.5 value to a AQI value
 }

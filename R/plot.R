@@ -411,7 +411,9 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
       hour = lubridate::hour(date),
       day = lubridate::wday(date, week_start = 1),
       day_name = lubridate::wday(date, label = TRUE, week_start = 1),
-      month = lubridate::month(date)
+      month = lubridate::month(date),
+      year = lubridate::year(date),
+      date = date
     )
 
   if (statistic == "Mean") {
@@ -434,7 +436,8 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
     diurnal_month <- plot_data |>
       dplyr::group_by(site, month) |>
       dplyr::summarise(pm25 = mean(pm25)) |>
-      dplyr::mutate(month = lubridate::parse_date_time(month, "m"))
+      # dplyr::mutate(month = lubridate::parse_date_time(month, "m"))
+      dplyr::mutate(date = lubridate::parse_date_time(paste0(year, "-", month), "ym"))
   }
   else if(statistic == "Median") {
     # Grouped by hours
@@ -456,7 +459,8 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
     diurnal_month <- plot_data |>
       dplyr::group_by(site, month) |>
       dplyr::summarise(pm25 = median(pm25)) |>
-      dplyr::mutate(month = lubridate::parse_date_time(month, "m"))
+      # dplyr::mutate(month = lubridate::parse_date_time(month, "m"))
+      dplyr::mutate(date = lubridate::parse_date_time(paste0(year, "-", month), "ym"))
   }
 
   hw_plot <- diurnal_hour_week |>
@@ -465,15 +469,9 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
       ggplot2::scale_x_continuous(expand = c(0, 0), breaks = seq(0, 23, 6)) +
       ggplot2::scale_y_continuous(
         expand = c(0, 0),
-        "PM2.5 (\u03bcg/m\u00b3)",
+        expression("PM"["2.5"] ~ "(\u03bcg/m\u00b3)"),
         limits = c(0, 40)
       ) +
-      # ggplot2::geom_hline(aes(yintercept = 35, linetype = "24-hr NAAQS"), color = "blue") +
-      # ggplot2::geom_hline(aes(yintercept = 9, linetype = "Annual NAAQS"), color = "red") +
-      # ggplot2::scale_linetype_manual(
-      #   name = "NAAQS limit", values = c(2, 2),
-      #   guide = guide_legend(override.aes = list( color = c("blue", "red")))
-      # ) +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::facet_wrap(ggplot2::vars(day_name), nrow = 1) +
@@ -488,15 +486,9 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
       ggplot2::scale_x_continuous(expand = c(0, 0), breaks = seq(0, 23, 6)) +
       ggplot2::scale_y_continuous(
         expand = c(0, 0),
-        "PM2.5 (\u03bcg/m\u00b3)",
+        expression("PM"["2.5"] ~ "(\u03bcg/m\u00b3)"),
         limits = c(0, 40)
       ) +
-      # ggplot2::geom_hline(aes(yintercept = 35, linetype = "24-hr NAAQS"), color = "blue") +
-      # ggplot2::geom_hline(aes(yintercept = 9, linetype = "Annual NAAQS"), color = "red") +
-      # ggplot2::scale_linetype_manual(
-      #   name = "NAAQS limit", values = c(2, 2),
-      #   guide = guide_legend(override.aes = list( color = c("blue", "red")))
-      # ) +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::theme(
@@ -505,23 +497,14 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
       )
 
   m_plot <- diurnal_month |>
-    ggplot2::ggplot(ggplot2::aes(month, pm25, color = site)) +
+    ggplot2::ggplot(ggplot2::aes(date, pm25, color = site)) +
       ggplot2::geom_line(linewidth = 1, lineend = "round") +
-      ggplot2::scale_x_datetime(
-        expand = c(0, 0),
-        labels = scales::date_format("%b")
-      ) +
+      ggplot2::guides(fill = 'none') +
       ggplot2::scale_y_continuous(
         expand = c(0, 0),
-        "PM2.5 (\u03bcg/m\u00b3)",
+        expression("PM"["2.5"] ~ "(\u03bcg/m\u00b3)"),
         limits = c(0, 40)
       ) +
-      # ggplot2::geom_hline(aes(yintercept = 35, linetype = "24-hr NAAQS"), color = "blue") +
-      # ggplot2::geom_hline(aes(yintercept = 9, linetype = "Annual NAAQS"), color = "red") +
-      # ggplot2::scale_linetype_manual(
-      #   name = "NAAQS limit", values = c(2, 2),
-      #   guide = guide_legend(override.aes = list( color = c("blue", "red")))
-      # ) +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::theme(

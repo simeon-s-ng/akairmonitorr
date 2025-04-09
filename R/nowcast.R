@@ -46,7 +46,7 @@ valid_nowcast <- function(data) {
   }
 }
 
-#' Converts a value to an AQI value
+#' Converts a calculated PM2.5 value to a AQI value
 #'
 #' @param value NowCast calculated value
 #'
