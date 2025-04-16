@@ -130,7 +130,7 @@ plot_lm_quant <- function(data, title, ind, dep, pollutant) {
 #'
 #' @return A Loess Smooth Line ggplot
 #' @export
-plot_loess <- function(data, x, y, title, xlab, ylab, caption) {
+plot_loess <- function(data, x, y, title, xlab, ylab, caption = NULL) {
   ggplot2::ggplot(data, ggplot2::aes(x = .data[[x]], y = .data[[y]])) +
     ggplot2::geom_point(
       alpha = 0.33,
