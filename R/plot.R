@@ -158,7 +158,7 @@ plot_loess <- function(data, x, y, title, xlab, ylab, caption = NULL) {
 #'
 #' @return A Median Regression ggplot
 #' @export
-plot_rq <- function(data, x, y, title, xlab, ylab, caption) {
+plot_rq <- function(data, x, y, title, xlab, ylab, caption = NULL) {
   ggplot2::ggplot(data, ggplot2::aes(x = .data[[x]], y = .data[[y]])) +
     ggplot2::geom_point(
       alpha = 0.33,
