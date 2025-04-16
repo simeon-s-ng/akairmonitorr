@@ -118,6 +118,36 @@ plot_lm_quant <- function(data, title, ind, dep, pollutant) {
     ggplot2::theme(plot.caption = ggplot2::element_text(size = 8))
 }
 
+#' Loess Regression Plot for any Pollutant & Monitor(s)
+#'
+#' @param data Pollutant Dataset. Must be in 'Date | Quant | BAM' form.
+#' @param x Independent variable
+#' @param y Dependent variable
+#' @param title Title of the plot.
+#' @param xlab X axis label.
+#' @param ylab Y axis label.
+#' @param caption Equation caption.
+#'
+#' @return A Loess Smooth Line ggplot
+#' @export
+plot_loess <- function(data, x, y, title, xlab, ylab, caption) {
+  ggplot2::ggplot(data, ggplot2::aes(x = .data[[x]], y = .data[[y]])) +
+    ggplot2::geom_point(
+      alpha = 0.33,
+      show.legend = TRUE
+    ) +
+    ggplot2::geom_smooth(method = "loess", se = FALSE) +
+    ggplot2::geom_abline(slope = 1, intercept = 0) +
+    ggthemes::scale_color_gdocs() +
+    ggplot2::ggtitle(title) +
+    ggplot2::labs(x = xlab, y = ylab, caption = caption) +
+    akairmonitorr::dec_plot_theme() +
+    ggplot2::theme(
+      title = ggplot2::element_text(size = 10),
+      plot.caption = ggplot2::element_text(size = 10)
+    )
+}
+
 #' Median Regression Plot for any Pollutant & Monitor(s)
 #'
 #' @param data Pollutant Dataset. Must be in 'Date | Quant | BAM' form.
