@@ -50,7 +50,6 @@ linear_regression <- function(
   return(mod)
 }
 
-
 #' Calculate average percent difference between two sensors
 #'
 #' @param data Dataset with wide pivoted sensor/pollutant columns

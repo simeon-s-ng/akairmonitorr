@@ -59,8 +59,7 @@ query_agileweb <- function(
           "ReportedUnitName",
           "IntervalName",
           "IsValid",
-          "ReportValue",
-          "FlagString"
+          "ReportValue"
       )
     data <- dplyr::bind_rows(data, resp)
     end_date_data <- max(data$Date)
