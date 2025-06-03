@@ -13,6 +13,21 @@ clean_pm25 <- function(data) {
   )
 }
 
+#' Extracts PM10 data from an Agileweb query.
+#'
+#' @param data Tibble from an agileweb query.
+#'
+#' @return Clean tibble with date and PM10 sample.
+#' @export
+clean_pm10 <- function(data) {
+  return(
+    data |>
+      dplyr::rename(date = Date, site_name = SiteName, pm10 = ReportValue) |>
+      dplyr::filter(!is.na(pm10), IsValid == TRUE) |>
+      dplyr::select(date, site_name, pm10)
+  )
+}
+
 #' Cleans Garden Quant Imported from AA
 #'
 #' @param data Tibble imported using the read_quant_flagged() function
