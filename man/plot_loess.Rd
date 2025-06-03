@@ -4,7 +4,7 @@
 \alias{plot_loess}
 \title{Loess Regression Plot for any Pollutant & Monitor(s)}
 \usage{
-plot_loess(data, x, y, title, xlab, ylab, caption)
+plot_loess(data, x, y, title, xlab, ylab, caption = NULL)
 }
 \arguments{
 \item{data}{Pollutant Dataset. Must be in 'Date | Quant | BAM' form.}
