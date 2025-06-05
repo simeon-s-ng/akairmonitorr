@@ -9,13 +9,13 @@ plot_diurnal_cc(data, site, start, end, statistic, title)
 \arguments{
 \item{data}{Quant data for plot}
 
-\item{site}{Quant sensor name}
+\item{site}{A string Quant sensor name}
 
 \item{start}{Start date}
 
 \item{end}{End date}
 
-\item{statistic}{Median or Mean}
+\item{statistic}{A string "Median" or "Mean"}
 
 \item{title}{Plot title}
 }

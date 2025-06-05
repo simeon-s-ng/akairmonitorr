@@ -2,24 +2,30 @@
 % Please edit documentation in R/plot.R
 \name{plot_diurnal}
 \alias{plot_diurnal}
-\title{Diurnal Plot}
+\title{PM2.5 Diurnal Plot}
 \usage{
 plot_diurnal(data, pollutant, sites, title, statistic)
 }
 \arguments{
 \item{data}{Data for plot.}
 
-\item{pollutant}{Pollutant name as a string.}
+\item{pollutant}{Pollutant name as a string (usually column name).}
 
 \item{sites}{Site name or list of sites.}
 
-\item{title}{Title for plot.}
+\item{title}{A string for the title of the plot.}
 
-\item{statistic}{Select mean or median.}
+\item{statistic}{A string "median" or "mean"}
 }
 \value{
 A Compilation of Diurnal Plots.
 }
 \description{
-Diurnal Plot
+PM2.5 Diurnal Plot
+}
+\examples{
+\dontrun{
+plot_diurnal(quant_pm25, "pm25", c("Bethel", "Napaskiak"), "Example Plot", "median")
+}
+
 }

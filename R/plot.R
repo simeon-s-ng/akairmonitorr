@@ -249,15 +249,21 @@ plot_pm25_box_monitor <- function(data, title) {
       akairmonitorr::dec_plot_theme()
 }
 
-#' Diurnal Plot
+#' PM2.5 Diurnal Plot
 #'
 #' @param data Data for plot.
-#' @param pollutant Pollutant name as a string.
+#' @param pollutant Pollutant name as a string (usually column name).
 #' @param sites Site name or list of sites.
-#' @param title Title for plot.
-#' @param statistic Select mean or median.
+#' @param title A string for the title of the plot.
+#' @param statistic A string "median" or "mean"
 #'
 #' @return A Compilation of Diurnal Plots.
+#'
+#' @examples
+#' \dontrun{
+#' plot_diurnal(quant_pm25, "pm25", c("Bethel", "Napaskiak"), "Example Plot", "median")
+#' }
+#'
 #' @export
 plot_diurnal <- function(data, pollutant, sites, title, statistic) {
   # Initial Cleaning ----
@@ -268,7 +274,9 @@ plot_diurnal <- function(data, pollutant, sites, title, statistic) {
       hour = lubridate::hour(date),
       day = lubridate::wday(date, week_start = 1),
       day_name = lubridate::wday(date, label = TRUE, week_start = 1),
-      month = lubridate::month(date)
+      month = lubridate::month(date),
+      year = lubridate::year(date),
+      date = date
     )
 
   if (statistic == "mean") {
@@ -289,9 +297,9 @@ plot_diurnal <- function(data, pollutant, sites, title, statistic) {
 
     # Grouped by month
     diurnal_month <- diurnal_data |>
-      dplyr::group_by(site, month) |>
+      dplyr::group_by(site, year, month) |>
       dplyr::summarise("{pollutant}" := mean(.data[[pollutant]])) |>
-      dplyr::mutate(month = lubridate::parse_date_time(month, "m"))
+      dplyr::mutate(date = lubridate::parse_date_time(paste0(year, "-", month), "ym"))
   }
   else if(statistic == "median") {
     # Grouped by hours
@@ -311,9 +319,9 @@ plot_diurnal <- function(data, pollutant, sites, title, statistic) {
 
     # Grouped by month
     diurnal_month <- diurnal_data |>
-      dplyr::group_by(site, month) |>
+      dplyr::group_by(site, year, month) |>
       dplyr::summarise("{pollutant}" := median(.data[[pollutant]])) |>
-      dplyr::mutate(month = lubridate::parse_date_time(month, "m"))
+      dplyr::mutate(date = lubridate::parse_date_time(paste0(year, "-", month), "ym"))
   }
 
   # Plots ----
@@ -324,7 +332,7 @@ plot_diurnal <- function(data, pollutant, sites, title, statistic) {
       ggplot2::scale_x_continuous(expand = c(0, 0), breaks = seq(0, 23, 6)) +
       ggplot2::scale_y_continuous(
         expand = c(0, 0),
-        "PM2.5 (\u03bcg/m\u00b3)",
+        expression("PM"["2.5"] ~ "(\u03bcg/m\u00b3)"),
         limits = c(
           0.9 * min(subset(diurnal_hour_week, select = pollutant)),
           1.1 * max(subset(diurnal_hour_week, select = pollutant))
@@ -344,7 +352,7 @@ plot_diurnal <- function(data, pollutant, sites, title, statistic) {
       ggplot2::scale_x_continuous(expand = c(0, 0), breaks = seq(0, 23, 6)) +
       ggplot2::scale_y_continuous(
         expand = c(0, 0),
-        "PM2.5 (\u03bcg/m\u00b3)",
+        expression("PM"["2.5"] ~ "(\u03bcg/m\u00b3)"),
         limits = c(
           0.9 * min(subset(diurnal_hour, select = pollutant)),
           1.1 * max(subset(diurnal_hour, select = pollutant))
@@ -358,15 +366,12 @@ plot_diurnal <- function(data, pollutant, sites, title, statistic) {
       )
 
   m_plot <- diurnal_month |>
-    ggplot2::ggplot(ggplot2::aes(month, .data[[pollutant]], color = site)) +
+    ggplot2::ggplot(ggplot2::aes(date, .data[[pollutant]], color = site)) +
       ggplot2::geom_line(linewidth = 1, lineend = "round") +
-      ggplot2::scale_x_datetime(
-        expand = c(0, 0),
-        labels = scales::date_format("%b")
-      ) +
+      ggplot2::guides(fill = 'none') +
       ggplot2::scale_y_continuous(
         expand = c(0, 0),
-        "PM2.5 (\u03bcg/m\u00b3)",
+        expression("PM"["2.5"] ~ "(\u03bcg/m\u00b3)"),
         limits = c(
           0.9 * min(subset(diurnal_month, select = pollutant)),
           1.1 * max(subset(diurnal_month, select = pollutant))
@@ -388,7 +393,7 @@ plot_diurnal <- function(data, pollutant, sites, title, statistic) {
       ) +
       ggplot2::scale_y_continuous(
         expand = c(0, 0),
-        "PM2.5 (\u03bcg/m\u00b3)",
+        expression("PM"["2.5"] ~ "(\u03bcg/m\u00b3)"),
         limits = c(
           0.9 * min(subset(diurnal_wd, select = pollutant)),
           1.1 * max(subset(diurnal_wd, select = pollutant))
@@ -425,10 +430,10 @@ plot_diurnal <- function(data, pollutant, sites, title, statistic) {
 #' Diurnal Plot - Community Call
 #'
 #' @param data Quant data for plot
-#' @param site Quant sensor name
+#' @param site A string Quant sensor name
 #' @param start Start date
 #' @param end End date
-#' @param statistic Median or Mean
+#' @param statistic A string "Median" or "Mean"
 #' @param title Plot title
 #'
 #' @return Diurnal ggplot
@@ -466,7 +471,6 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
     diurnal_month <- plot_data |>
       dplyr::group_by(site, year, month) |>
       dplyr::summarise(pm25 = mean(pm25)) |>
-      # dplyr::mutate(month = lubridate::parse_date_time(month, "m"))
       dplyr::mutate(date = lubridate::parse_date_time(paste0(year, "-", month), "ym"))
   }
   else if(statistic == "Median") {
@@ -489,7 +493,6 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
     diurnal_month <- plot_data |>
       dplyr::group_by(site, year, month) |>
       dplyr::summarise(pm25 = median(pm25)) |>
-      # dplyr::mutate(month = lubridate::parse_date_time(month, "m"))
       dplyr::mutate(date = lubridate::parse_date_time(paste0(year, "-", month), "ym"))
   }
 
@@ -554,12 +557,6 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
         "PM2.5 (\u03bcg/m\u00b3)",
         limits = c(0, 40)
       ) +
-      # ggplot2::geom_hline(aes(yintercept = 35, linetype = "24-hr NAAQS"), color = "blue") +
-      # ggplot2::geom_hline(aes(yintercept = 9, linetype = "Annual NAAQS"), color = "red") +
-      # ggplot2::scale_linetype_manual(
-      #   name = "NAAQS limit", values = c(2, 2),
-      #   guide = guide_legend(override.aes = list( color = c("blue", "red")))
-      # ) +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::theme(
