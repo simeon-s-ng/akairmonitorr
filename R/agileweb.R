@@ -39,8 +39,8 @@ query_agileweb <- function(
     req <- httr2::request(
       paste0(
         "https://dec.alaska.gov/applications/air/airvision/api/averagedata?",
-        "sites=", stringr::str_replace_all(sites, " ", "%20"), "&",
-        "parameters=", stringr::str_replace_all(parameters, " ", "%20"), "&",
+        "sites=", stringr::str_replace_all(sites, ", ", "%20"), "&",
+        "parameters=", stringr::str_replace_all(parameters, ", ", "%20"), "&",
         "interval=", interval, "&",
         "start=", new_start_date, "&",
         "end=", end
