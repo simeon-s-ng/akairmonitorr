@@ -471,7 +471,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
     diurnal_month <- plot_data |>
       dplyr::group_by(site, month) |>
       dplyr::summarise(pm25 = mean(pm25)) |>
-      dplyr::mutate(month = lubridate::month(month, label = TRUE, abbr = TRUE))
+      dplyr::mutate(date = lubridate::month(month, label = TRUE, abbr = TRUE))
   }
   else if(statistic == "Median") {
     # Grouped by hours
@@ -493,7 +493,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
     diurnal_month <- plot_data |>
       dplyr::group_by(site, month) |>
       dplyr::summarise(pm25 = median(pm25)) |>
-      dplyr::mutate(month = lubridate::month(month, label = TRUE, abbr = TRUE))
+      dplyr::mutate(date = lubridate::month(month, label = TRUE, abbr = TRUE))
   }
 
   hw_plot <- diurnal_hour_week |>
@@ -526,7 +526,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
       )
 
   m_plot <- diurnal_month |>
-    ggplot2::ggplot(ggplot2::aes(month, pm25, color = site)) +
+    ggplot2::ggplot(ggplot2::aes(factor(date), pm25, color = site)) +
       ggplot2::geom_line(ggplot2::aes(y = pm25), linewidth = 1, lineend = "round") +
       ggplot2::guides(fill = 'none') +
       ggplot2::scale_y_continuous(
