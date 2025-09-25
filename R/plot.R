@@ -469,9 +469,9 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
 
     # Grouped by month
     diurnal_month <- plot_data |>
-      dplyr::group_by(site, year, month) |>
+      dplyr::group_by(site, month) |>
       dplyr::summarise(pm25 = mean(pm25)) |>
-      dplyr::mutate(date = lubridate::parse_date_time(paste0(year, "-", month), "ym"))
+      dplyr::mutate(month = month.abb[month])
   }
   else if(statistic == "Median") {
     # Grouped by hours
@@ -492,9 +492,8 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
     # Grouped by month
     diurnal_month <- plot_data |>
       dplyr::group_by(site, month) |>
-      # dplyr::group_by(site, year, month) |>
       dplyr::summarise(pm25 = median(pm25)) |>
-      dplyr::mutate(date = lubridate::parse_date_time(month, "m"))
+      dplyr::mutate(month = month.abb[month])
   }
 
   hw_plot <- diurnal_hour_week |>
