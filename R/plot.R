@@ -493,8 +493,8 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
     diurnal_month <- plot_data |>
       dplyr::group_by(site, month) |>
       # dplyr::group_by(site, year, month) |>
-      dplyr::summarise(pm25 = median(pm25))
-      # dplyr::mutate(date = lubridate::parse_date_time(paste0(year, "-", month), "ym"))
+      dplyr::summarise(pm25 = median(pm25)) |>
+      dplyr::mutate(date = lubridate::parse_date_time(month, "m"))
   }
 
   hw_plot <- diurnal_hour_week |>
@@ -527,7 +527,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
       )
 
   m_plot <- diurnal_month |>
-    ggplot2::ggplot(ggplot2::aes(month, pm25, color = site)) +
+    ggplot2::ggplot(ggplot2::aes(date, pm25, color = site)) +
       ggplot2::geom_line(linewidth = 1, lineend = "round") +
       ggplot2::guides(fill = 'none') +
       ggplot2::scale_y_continuous(
