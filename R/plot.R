@@ -451,6 +451,8 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
       date = date
     )
 
+  month_count <- dplyr::n_distinct(plot_data$month, na.rm = TRUE)
+
   if (statistic == "Mean") {
     # Grouped by hours
     diurnal_hour <- plot_data |>
@@ -525,9 +527,9 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
         panel.spacing = ggplot2::unit(0, "lines")
       )
 
-  if(dplyr::count(diurnal_month$pm25) <= 1) {
+  if(month_count <= 1) {
     m_plot <- diurnal_month |>
-    ggplot2::ggplot(ggplot2::aes(date, pm25, color = site)) +
+    ggplot2::ggplot(ggplot2::aes(date, pm25, color = site, group = 1)) +
       ggplot2::geom_point(size = 1) +
       ggplot2::guides(fill = 'none') +
       ggplot2::scale_y_continuous(
