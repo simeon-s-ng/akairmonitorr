@@ -527,8 +527,8 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
 
   if(length(diurnal_month$date) <= 1) {
     m_plot <- diurnal_month |>
-    ggplot2::ggplot(ggplot2::aes(date, pm25, color = site, group = 1)) +
-      ggplot2::geom_point(ggplot2::aes(y = pm25)) +
+    ggplot2::ggplot(ggplot2::aes(date, pm25, color = site)) +
+      ggplot2::geom_point(size = 1) +
       ggplot2::guides(fill = 'none') +
       ggplot2::scale_y_continuous(
         expression("PM"["2.5"] ~ "(\u03bcg/m\u00b3)"),
