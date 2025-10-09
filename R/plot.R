@@ -525,7 +525,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
         panel.spacing = ggplot2::unit(0, "lines")
       )
 
-  if(length(diurnal_month$date) <= 1) {
+  if(dplyr::count(diurnal_month$date) <= 1) {
     m_plot <- diurnal_month |>
     ggplot2::ggplot(ggplot2::aes(date, pm25, color = site)) +
       ggplot2::geom_point(size = 1) +
