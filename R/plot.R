@@ -525,9 +525,10 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
         panel.spacing = ggplot2::unit(0, "lines")
       )
 
-  m_plot <- diurnal_month |>
+  if(length(diurnal_month$date) <= 1) {
+    m_plot <- diurnal_month |>
     ggplot2::ggplot(ggplot2::aes(date, pm25, color = site, group = 1)) +
-      ggplot2::geom_line(ggplot2::aes(y = pm25), linewidth = 1, lineend = "round") +
+      ggplot2::geom_point(ggplot2::aes(y = pm25)) +
       ggplot2::guides(fill = 'none') +
       ggplot2::scale_y_continuous(
         expression("PM"["2.5"] ~ "(\u03bcg/m\u00b3)"),
@@ -538,6 +539,22 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
         plot.margin = ggplot2::margin(1.5, 1.5, 1.5, 2.5, 'pt'),
         panel.spacing = ggplot2::unit(0, "lines")
       )
+  }
+  else {
+    m_plot <- diurnal_month |>
+      ggplot2::ggplot(ggplot2::aes(date, pm25, color = site, group = 1)) +
+        ggplot2::geom_line(ggplot2::aes(y = pm25), linewidth = 1, lineend = "round") +
+        ggplot2::guides(fill = 'none') +
+        ggplot2::scale_y_continuous(
+          expression("PM"["2.5"] ~ "(\u03bcg/m\u00b3)"),
+        ) +
+        ggplot2::scale_color_brewer(palette = "Set1") +
+        akairmonitorr::dec_plot_theme() +
+        ggplot2::theme(
+          plot.margin = ggplot2::margin(1.5, 1.5, 1.5, 2.5, 'pt'),
+          panel.spacing = ggplot2::unit(0, "lines")
+        )
+  }
 
   wd_plot <- diurnal_wd |>
     ggplot2::ggplot(ggplot2::aes(day, pm25, color = site)) +
