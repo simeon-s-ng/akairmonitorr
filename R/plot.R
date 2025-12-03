@@ -544,7 +544,7 @@ plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
   }
   else {
     m_plot <- diurnal_month |>
-      ggplot2::ggplot(ggplot2::aes(date, pm25, color = site)) +
+      ggplot2::ggplot(ggplot2::aes(date, pm25, color = site, group = site)) +
         ggplot2::geom_line(linewidth = 1, lineend = "round") +
         ggplot2::guides(fill = 'none') +
         ggplot2::scale_y_continuous(
