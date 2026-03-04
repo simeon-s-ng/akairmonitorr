@@ -43,6 +43,21 @@ clean_ambtemp <- function(data) {
   )
 }
 
+#' Extracts AMBTEMP data from an Agileweb query.
+#'
+#' @param data Tibble from an agileweb query.
+#'
+#' @return Clean tibble with date and AMBTEMP sample.
+#' @export
+clean_relhum <- function(data) {
+  return(
+    data |>
+      dplyr::rename(date = Date, site_name = SiteName, relhum = ReportValue) |>
+      dplyr::filter(!is.na(ambtemp), IsValid == TRUE) |>
+      dplyr::select(date, site_name, relhum)
+  )
+}
+
 #' Cleans Garden Quant Imported from AA
 #'
 #' @param data Tibble imported using the read_quant_flagged() function
