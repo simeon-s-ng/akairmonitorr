@@ -10,6 +10,8 @@
   : Calculate average percent difference between two sensors
 - [`check_completeness()`](https://simeon-s-ng.github.io/akairmonitorr/reference/check_completeness.md)
   : Check Completeness of Dataset
+- [`clean_ambtemp()`](https://simeon-s-ng.github.io/akairmonitorr/reference/clean_ambtemp.md)
+  : Extracts AMBTEMP data from an Agileweb query.
 - [`clean_co_qt_bam()`](https://simeon-s-ng.github.io/akairmonitorr/reference/clean_co_qt_bam.md)
   : Cleans a Joined Quant/BAM dataset for CO
 - [`clean_garden_quant()`](https://simeon-s-ng.github.io/akairmonitorr/reference/clean_garden_quant.md)
