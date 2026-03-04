@@ -30,6 +30,8 @@
   : Create a Joined Quant Dataset
 - [`clean_regulatory()`](https://simeon-s-ng.github.io/akairmonitorr/reference/clean_regulatory.md)
   : Cleans Regulatory Data Imported from AA
+- [`clean_relhum()`](https://simeon-s-ng.github.io/akairmonitorr/reference/clean_relhum.md)
+  : Extracts AMBTEMP data from an Agileweb query.
 - [`convert_aqi_pm25()`](https://simeon-s-ng.github.io/akairmonitorr/reference/convert_aqi_pm25.md)
   : Converts a calculated PM2.5 value to a AQI value
 - [`dec_plot_theme()`](https://simeon-s-ng.github.io/akairmonitorr/reference/dec_plot_theme.md)
