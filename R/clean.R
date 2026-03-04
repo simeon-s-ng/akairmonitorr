@@ -53,7 +53,7 @@ clean_relhum <- function(data) {
   return(
     data |>
       dplyr::rename(date = Date, site_name = SiteName, relhum = ReportValue) |>
-      dplyr::filter(!is.na(ambtemp), IsValid == TRUE) |>
+      dplyr::filter(!is.na(relhum), IsValid == TRUE) |>
       dplyr::select(date, site_name, relhum)
   )
 }
