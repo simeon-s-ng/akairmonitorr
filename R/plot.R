@@ -707,6 +707,6 @@ plot_wind_rose <- function(data, title, annotation = TRUE) {
     max.freq = 21,
     breaks = c(0.01, 0.50, 1.50, 3.10, 5.10, 8.20, 10.80),
     main = title,
-    annotate = annotation
+    annotate = c(annotation)
   )
 }
