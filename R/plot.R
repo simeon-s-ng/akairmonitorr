@@ -694,7 +694,7 @@ plot_o3_ts_monitor <- function(data, title) {
 #'
 #' @return An openair Windrose
 #' @export
-plot_wind_rose <- function(data, title, annotation) {
+plot_wind_rose <- function(data, title, annotation = TRUE) {
   openair::windRose(
     mydata = data,
     paddle = FALSE,
