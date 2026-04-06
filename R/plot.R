@@ -694,7 +694,7 @@ plot_o3_ts_monitor <- function(data, title) {
 #'
 #' @return An openair Windrose
 #' @export
-plot_wind_rose <- function(data, title) {
+plot_wind_rose <- function(data, title, annotation) {
   openair::windRose(
     mydata = data,
     paddle = FALSE,
@@ -706,6 +706,7 @@ plot_wind_rose <- function(data, title) {
     grid.line = list(value = 3.5, lty = 5),
     max.freq = 21,
     breaks = c(0.01, 0.50, 1.50, 3.10, 5.10, 8.20, 10.80),
-    main = title
+    main = title,
+    annotate = annotation
   )
 }
