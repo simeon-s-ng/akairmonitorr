@@ -377,6 +377,10 @@ plot_diurnal <- function(data, pollutant, sites, title, statistic) {
           1.1 * max(subset(diurnal_month, select = pollutant))
         )
       ) +
+      ggplot2::scale_x_discrete(
+        breaks = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"),
+        labels = c('J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D')
+      ) +
       ggplot2::scale_color_brewer(palette = "Set1") +
       akairmonitorr::dec_plot_theme() +
       ggplot2::theme(
