@@ -444,7 +444,7 @@ plot_diurnal <- function(data, pollutant, sites, title, statistic) {
 #' @export
 plot_diurnal_cc <- function(data, site, start, end, statistic, title) {
   plot_data <- data |>
-    dplyr::filter(site_name %in% site, date >= start, date <= end) |>
+    dplyr::filter(site_name %in% site, date >= start, date <= end, pm25 <= 1000) |>
     dplyr::rename(site = site_name) |>
     dplyr::mutate(
       hour = lubridate::hour(date),
