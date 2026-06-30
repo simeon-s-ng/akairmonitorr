@@ -9,6 +9,7 @@ You can install the development version of akairmonitorr from
 [GitHub](https://github.com/simeon-s-ng/akairmonitorr) with:
 
 ``` r
+
 # install.packages("pak")
 pak::pak("simeon-s-ng/akairmonitorr")
 ```
@@ -16,6 +17,7 @@ pak::pak("simeon-s-ng/akairmonitorr")
 OR
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("simeon-s-ng/akairmonitorr")
 ```
@@ -23,6 +25,7 @@ devtools::install_github("simeon-s-ng/akairmonitorr")
 ## Example
 
 ``` r
+
 library(akairmonitorr)
 ```
 
@@ -32,6 +35,7 @@ You can query our internal AirVision server for data with:
 [Keyring](https://keyring.r-lib.org/) package)
 
 ``` r
+
 key <- API_KEY
 quant_460 <- query_agileweb("Quant_MOD00460", "PM25", start = "2024-05-13T00:00:00", api_key = key) |>
   clean_pm25()
@@ -43,6 +47,7 @@ out to the AMQA Data Management Team at <amqa-data-request@alaska.gov>
 Or read a .csv basic data export from AirVision:
 
 ``` r
+
 file_path <- "C:/Data Analysis/Testing/data/haines_quant.csv"
 haines_quant <- read_aa(file_path)
 #> New names:
@@ -73,6 +78,7 @@ head(haines_quant)
 Create diurnal plots of a sensor or sensor dataset with
 
 ``` r
+
 library(patchwork)
 plot_diurnal(quant_460, "pm25", c("Quant_MOD00460"), "Your title here", "median")
 ```
@@ -83,6 +89,7 @@ You can create an OpenAir diurnal plot with your imported data (must
 follow openair package column naming conventions):
 
 ``` r
+
 # plot_quant_pm25(haines_quant, "Haines")
 ```
 
@@ -90,6 +97,7 @@ You can create an OpenAir wind rose with your imported data (must follow
 openair package column naming conventions):
 
 ``` r
+
 # plot_wind_rose(data, "Hourly Wind Speed (m/s) vs. Direction at the A Street Monitor 2021")
 ```
 
